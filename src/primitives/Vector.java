@@ -1,6 +1,8 @@
 package primitives;
 
 /**
+ * Vector class
+ * 
  * @author Aryeh and Zvi
  */
 public class Vector extends Point {
@@ -20,6 +22,8 @@ public class Vector extends Point {
     }
 
     /**
+     * add a vector to this vector and returns the result
+     * 
      * @param v
      * @return the sum of this vector and v
      */
@@ -29,6 +33,8 @@ public class Vector extends Point {
     }
 
     /**
+     * subtract a vector from this vector and returns the result
+     * 
      * @param v
      * @return this vector minus v
      */
@@ -38,6 +44,8 @@ public class Vector extends Point {
     }
 
     /**
+     * scalar multiplication of this vector and returns the result
+     * 
      * @return scalar multiplication of this vector and s
      * @param s
      */
@@ -47,6 +55,8 @@ public class Vector extends Point {
     }
 
     /**
+     * dot product of this vector and v
+     * 
      * @return dot product of this vector and v
      * @param v
      */
@@ -56,6 +66,8 @@ public class Vector extends Point {
     }
 
     /**
+     * cross product of this vector and v
+     * 
      * @return the cross product of this vector and v
      * @param v
      */
@@ -67,6 +79,8 @@ public class Vector extends Point {
     }
 
     /**
+     * returns the length of this vector quared
+     * 
      * @return the length of the vector squared
      */
     public double lengthSquared() {
@@ -74,6 +88,8 @@ public class Vector extends Point {
     }
 
     /**
+     * returns the length of this vector
+     * 
      * @return the length of the vector
      */
     public double length() {
@@ -81,19 +97,19 @@ public class Vector extends Point {
     }
 
     /**
+     * returns the unit vector of this vector
+     * 
      * @return the normalized vector
      */
     public Vector normalize() {
         return scale(1.0 / length());
     }
-
+    
     /**
-     * @return the normal
+     * checks if the vector is normalized
+     * 
+     * @return true if the vector is normalized
      */
-    public Vector getNormal() {
-        return new Vector(xyz.d1, xyz.d2, xyz.d3);
-    }
-
     public Boolean isNormalized() {
         return lengthSquared() == 1.0;
     }
@@ -101,14 +117,6 @@ public class Vector extends Point {
     @Override
     public String toString() {
         return "→ " + xyz;
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((xyz == null) ? 0 : xyz.hashCode());
-        return result;
     }
 
     @Override
