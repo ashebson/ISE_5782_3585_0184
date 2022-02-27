@@ -6,13 +6,25 @@ package primitives;
  * @author Aryeh and Zvi
  */
 public class Vector extends Point {
+
+    /**
+     * constructor with Double3
+     * 
+     * @param xyz
+     */
+    public Vector(Double3 v) {
+        super(v);
+        if(v.equals(Double3.ZERO))
+            throw new IllegalArgumentException("Vector cannot be zero");
+    };
+
     /**
      * Constructor
      *
      * @param x
      * @param y
      * @param z
-     */
+     */     
     public Vector(double x, double y, double z) {
         super(x, y, z);
         // check if is 0 vector, if so throw exception

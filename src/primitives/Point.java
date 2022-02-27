@@ -9,13 +9,20 @@ public class Point {
     final protected Double3 xyz;
 
     /**
+     * constructor with Double3
+     * 
+     * @param xyz
+     */
+    public Point(Double3 xyz) {
+        this.xyz = xyz;
+    }
+
+    /**
      * constructor with 3 doubles
      * 
      * @param x
      * @param y 
      * @param z
-     * 
-     * @return Point
      */
     public Point(double x, double y, double z) {
         xyz = new Double3(x, y, z);
