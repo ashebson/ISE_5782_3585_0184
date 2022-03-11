@@ -41,7 +41,7 @@ public class Plane implements Geometry {
     }
 
     /**
-     * retruns the normal
+     * returns the normal
      *
      * @return normal
      */

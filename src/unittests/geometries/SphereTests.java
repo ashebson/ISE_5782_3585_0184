@@ -1,6 +1,5 @@
 package unittests.geometries;
 
-import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
@@ -14,6 +13,9 @@ import primitives.*;
  * @author Aryeh Shebson & Zvi Korach
  */
 public class SphereTests {
+    /**
+     * Test method for {@link geometries.Sphere#getNormal(primitives.Point)}.
+     */
     @Test
     public void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
@@ -22,12 +24,7 @@ public class SphereTests {
         double r = 1;
         Sphere s = new Sphere(o, r);
         Vector n = s.getNormal(p);
-        // TC01: Correct normal length
-        assertEquals(n.length(), 1, "Wrong normal length");
-        Vector po = p.subtract(o);
-        // TC02: Normal is outward
-        assertTrue(n.dotProduct(po) >= 0, "Normal not outward");
-        // TC03: Normal is orthogonal
-        assertThrows("Normal not orthogonal",IllegalArgumentException.class, ()->n.crossProduct(po));
+        // TC01: Correct normal
+        assertEquals(new Vector(1,0,0), n, "Wrong normal");
     }
 }

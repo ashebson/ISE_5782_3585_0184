@@ -11,8 +11,11 @@ import primitives.Vector;
 public class Sphere implements Geometry {
     Point center;
     double radius;
-    /**
-     * 
+    
+    /** 
+     * returns normal at point p
+     * @param p
+     * @return Vector
      */
     @Override
     public Vector getNormal(Point p) {
@@ -38,5 +41,4 @@ public class Sphere implements Geometry {
     public double getRadius() {
         return radius;
     }
-    
 }

@@ -1,6 +1,8 @@
 package unittests.primitives;
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,22 +18,25 @@ public class PointTests {
      * Test method for {@link primitives.Point#add(primitives.Point)}.
      */
     @Test
-    public void testAdd(){
+    public void testAdd() {
         // ============ Equivalence Partitions Tests ==============
-        // Test addition of point and vector
-		Point p1 = new Point(1, 2, 3);
-		assertTrue("Point + Vector does not work correctly",p1.add(new Vector(-1, -2, -3)).equals(new Point(0, 0, 0)));
-		
+        // TC01: Add point and vector correctly
+        Point p1 = new Point(1, 2, 3);
+        Vector v1 = new Vector(-1, -2, -3);
+        Point p2 = new Point(0, 0, 0);
+        assertTrue(p1.add(v1).equals(p2), "Point + Vector does not work correctly");
     }
-    
+
     /**
      * Test method for {@link primitives.Point#subtract(primitives.Point)}.
      */
     @Test
-    public void testSubtract(){
+    public void testSubtract() {
         // ============ Equivalence Partitions Tests ==============
-        // Test subtraction of points
+        // TC01: Correct subtraction between point and vector
         Point p1 = new Point(1, 2, 3);
-        assertTrue("Point - Point does not work correctly",new Vector(1, 1, 1).equals(new Point(2, 3, 4).subtract(p1)));
+        Vector v1 = new Vector(1, 1, 1);
+        Point p2 = new Point(2, 3, 4);
+        assertTrue(v1.equals(p2.subtract(p1)), "Point - Point does not work correctly");
     }
 }

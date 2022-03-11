@@ -1,8 +1,7 @@
 package unittests.geometries;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import geometries.*;
 import primitives.*;
@@ -13,6 +12,9 @@ import primitives.*;
  * @author Aryeh Shebson & Zvi Korach
  */
 public class TubeTests {
+    /**
+     * Test method for {@link geometries.Tube#getNormal(primitives.Point)}.
+     */
     @Test
     public void testGetNormal() {
         // =============== Boundary Values Tests ==================
