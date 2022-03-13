@@ -72,7 +72,7 @@ public class Vector extends Point {
      * @return dot product of this vector and v
      * @param v
      */
-    public Double dotProduct(Vector v) {
+    public double dotProduct(Vector v) {
         return xyz.d1 * v.xyz.d1 + xyz.d2 * v.xyz.d2
                 + xyz.d3 * v.xyz.d3;
     }
