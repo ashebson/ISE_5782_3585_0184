@@ -49,7 +49,7 @@ public class Point {
      */
     public Point add(Vector v) {
         Double3 sum = xyz.add(v.xyz);
-        return new Point(sum.d1,sum.d2,sum.d3);
+        return new Point(sum);
     }
 
     /**
@@ -84,12 +84,7 @@ public class Point {
         if (!(obj instanceof Point))
             return false;
         Point other = (Point) obj;
-        if (xyz == null) {
-            if (other.xyz != null)
-                return false;
-        } else if (!xyz.equals(other.xyz))
-            return false;
-        return true;
+        return xyz.equals(other.xyz);
     }
 
     @Override

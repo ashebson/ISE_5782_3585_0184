@@ -17,11 +17,21 @@ public class Ray {
      */
     public Ray(Point p0, Vector dir) {
         // check if dir isn't normalized and if so normalize
-        if (!dir.isNormalized()) {
-            dir = dir.normalize();
-        }
+        dir = dir.normalize();
         this.p0 = p0;
         this.dir = dir;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Ray other = (Ray) obj;
+        return p0.equals(other.p0);
     }
 
     /**

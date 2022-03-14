@@ -41,7 +41,7 @@ public class Vector extends Point {
      */
     public Vector add(Vector v) {
         Double3 sum = xyz.add(v.xyz);
-        return new Vector(sum.d1, sum.d2, sum.d3);
+        return new Vector(sum);
     }
 
     /**
@@ -52,7 +52,7 @@ public class Vector extends Point {
      */
     public Vector subtract(Vector v) {
         Double3 sub = xyz.subtract(v.xyz);
-        return new Vector(sub.d1, sub.d2, sub.d3);
+        return new Vector(sub);
     }
 
     /**
@@ -62,8 +62,7 @@ public class Vector extends Point {
      * @param s
      */
     public Vector scale(double s) {
-        Double3 scaled = xyz.scale(s);
-        return new Vector(scaled.d1, scaled.d2, scaled.d3);
+        return new Vector(xyz.scale(s));
     }
 
     /**
@@ -114,16 +113,9 @@ public class Vector extends Point {
      * @return the normalized vector
      */
     public Vector normalize() {
-        return scale(1.0 / length());
-    }
-    
-    /**
-     * checks if the vector is normalized
-     * 
-     * @return true if the vector is normalized
-     */
-    public Boolean isNormalized() {
-        return lengthSquared() == 1.0;
+        if (lengthSquared() != 1.0) // if the vector is already normalized, return this vector
+            return scale(1.0 / length());
+        return this;
     }
 
     @Override
@@ -140,11 +132,6 @@ public class Vector extends Point {
         if (!(obj instanceof Vector))
             return false;
         Vector other = (Vector) obj;
-        if (xyz == null) {
-            if (other.xyz != null)
-                return false;
-        } else if (!xyz.equals(other.xyz))
-            return false;
-        return true;
+        return xyz.equals(other.xyz);
     }
 }
