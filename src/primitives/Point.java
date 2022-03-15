@@ -36,8 +36,7 @@ public class Point {
      * @return Vector
      */
     public Vector subtract(Point p) {
-        Double3 sub = xyz.subtract(p.xyz);
-        return new Vector(sub.d1,sub.d2,sub.d3);
+        return new Vector(xyz.subtract(p.xyz));
     }
 
     /**
@@ -48,8 +47,7 @@ public class Point {
      * @return Point
      */
     public Point add(Vector v) {
-        Double3 sum = xyz.add(v.xyz);
-        return new Point(sum);
+        return new Point(xyz.add(v.xyz));
     }
 
     /**

@@ -40,8 +40,7 @@ public class Vector extends Point {
      * @return the sum of this vector and v
      */
     public Vector add(Vector v) {
-        Double3 sum = xyz.add(v.xyz);
-        return new Vector(sum);
+        return this.add(v);
     }
 
     /**
@@ -51,8 +50,7 @@ public class Vector extends Point {
      * @return this vector minus v
      */
     public Vector subtract(Vector v) {
-        Double3 sub = xyz.subtract(v.xyz);
-        return new Vector(sub);
+        return this.subtract(v);
     }
 
     /**
