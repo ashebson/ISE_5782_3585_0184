@@ -34,4 +34,12 @@ public class TubeTests {
         // TC11: Correct normal
         assertEquals(n,new Vector(0,1,0), "Wrong normal");
     }
+
+    /**
+     * Test method for {@link geometries.Tube#findIntersections(primitives.Ray)}.
+     */
+    @Test
+    void testFindIntersections() {
+        
+    }
 }

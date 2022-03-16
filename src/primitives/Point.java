@@ -89,4 +89,31 @@ public class Point {
     public String toString() {
         return "• "+ xyz;
     }
+
+    /**
+     * returns the x coordinate of this point
+     * 
+     * @return double
+     */
+    public double getX() {
+        return xyz.d1;
+    }
+
+    /**
+     * returns the y coordinate of this point
+     * 
+     * @return double
+     */
+    public double getY() {
+        return xyz.d2;
+    }
+
+    /**
+     * returns the z coordinate of this point
+     * 
+     * @return double
+     */
+    public double getZ() {
+        return xyz.d3;
+    }
 }

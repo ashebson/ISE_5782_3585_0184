@@ -47,4 +47,12 @@ public class CylinderTests {
         assertEquals(n,new Vector(1,0,0), "Wrong normal when in center of second base");
 
     }
+
+    /**
+     * Test method for {@link geometries.Cylinder#findIntersections(primitives.Ray)}.
+     */
+    @Test
+    void testFindIntersections() {
+        
+    }
 }

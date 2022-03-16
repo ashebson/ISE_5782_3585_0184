@@ -26,4 +26,12 @@ public class TriangleTests {
         // TC01: Correct normal
         assertEquals(new Vector(0,0,1), n, "Wrong normal");
     }
+
+    /**
+     * Test method for {@link geometries.Triangle#findIntersections(primitives.Ray)}.
+     */
+    @Test
+    void testFindIntersections() {
+        
+    }
 }

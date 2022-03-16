@@ -1,5 +1,7 @@
 package geometries;
 
+import java.util.List;
+
 import primitives.*;
 
 /**
@@ -45,6 +47,12 @@ public class Cylinder extends Tube {
         }else{
             return super.getNormal(p);
         }
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }
