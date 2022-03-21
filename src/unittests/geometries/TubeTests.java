@@ -54,6 +54,9 @@ public class TubeTests {
         // TC04: Ray is equal the ray in the cylinder (1 points)
         r = new Ray(new Point(1,1,0), new Vector(0,0,1));
         assertEquals(t.findIntersections(r), 1, "Wrong number of points");
+        // TC05: Ray is tangent to the tube (0 points)
+        r = new Ray(new Point(-1,0,0), new Vector(1,0,1));
+        assertNull(t.findIntersections(r), "Wrong number of points");
         // ==================== Equivelence Partitions Tests ===============
         // TC11: Ray is parallel to the tube (0 points)
         r = new Ray(new Point(0,2,2), new Vector(0,0,1));

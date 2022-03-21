@@ -31,7 +31,7 @@ public class Ray {
         if (getClass() != obj.getClass())
             return false;
         Ray other = (Ray) obj;
-        return p0.equals(other.p0);
+        return p0.equals(other.p0) && dir.equals(other.dir);
     }
 
     /**
