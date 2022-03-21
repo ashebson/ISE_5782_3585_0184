@@ -53,6 +53,27 @@ public class CylinderTests {
      */
     @Test
     void testFindIntersections() {
-        
+        // ==================== Boundry Values Tests ======================
+        // TC01: Ray starts from the edge and goes out (0 points)
+        Cylinder c = new Cylinder(new Ray(new Point(1,1,0), new Vector(0,0,1)), 1, 3);
+        Ray r = new Ray(new Point(1,0,3), new Vector(1,1,1));
+        assertNull(c.findIntersections(r),"Wrong number of points");
+        // TC02: Ray starts from the edge and goes in (1 points)
+        r = new Ray(new Point(1,0,3), new Vector(1,1,-1));
+        assertEquals(c.findIntersections(r).size(),1,"Wrong number of points");
+        // TC03: Ray starts from the base and goes out (0 points)
+        c = new Cylinder(new Ray(new Point(1,1,0), new Vector(0,0,1)), 2, 3);
+        r = new Ray(new Point(1,0,3), new Vector(1,1,1));
+        assertNull(c.findIntersections(r),"Wrong number of points");
+        // TC04: Ray starts from the base and goes in (1 points)
+        r = new Ray(new Point(1,0,3), new Vector(1,1,-1));
+        assertEquals(c.findIntersections(r).size(),1,"Wrong number of points");
+        // TC05: Ray starts from the center and goes in (1 points)
+        c = new Cylinder(new Ray(new Point(1,1,0), new Vector(0,0,1)), 1, 3);
+        r = new Ray(new Point(1,1,0), new Vector(1,1,1));
+        assertEquals(c.findIntersections(r).size(),1,"Wrong number of points");
+        // TC06: Ray starts from the center and goes out (0 points)
+        r = new Ray(new Point(1,1,0), new Vector(1,1,-1));
+        assertNull(c.findIntersections(r),"Wrong number of points");
     }
 }

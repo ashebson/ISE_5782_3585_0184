@@ -40,6 +40,27 @@ public class TubeTests {
      */
     @Test
     void testFindIntersections() {
-        
+        // ==================== Boundry Values Tests ======================
+        // TC01: Ray starts from the tube and goes out (0 points)
+        Tube t = new Tube(new Ray(new Point(1,1,0), new Vector(0,0,1)), 1);
+        Ray r = new Ray(new Point(0,1,1), new Vector(-1,1,1));
+        assertNull(t.findIntersections(r), "Wrong number of points");
+        // TC02: Ray starts from the tube and goes in (1 points)
+        r = new Ray(new Point(0,1,1), new Vector(1,1,1));
+        assertNull(t.findIntersections(r), "Wrong number of points");
+        // TC03: Ray is contained in the tube (0 points)
+        r = new Ray(new Point(0,1,1), new Vector(0,0,1));
+        assertNull(t.findIntersections(r), "Wrong number of points");
+        // TC04: Ray is equal the ray in the cylinder (1 points)
+        r = new Ray(new Point(1,1,0), new Vector(0,0,1));
+        assertEquals(t.findIntersections(r), 1, "Wrong number of points");
+        // ==================== Equivelence Partitions Tests ===============
+        // TC11: Ray is parallel to the tube (0 points)
+        r = new Ray(new Point(0,2,2), new Vector(0,0,1));
+        assertNull(t.findIntersections(r), "Wrong number of points");
+        // TC12: Ray is orthogonal to the tube (1 point)
+        r = new Ray(new Point(1,3,2), new Vector(0,-1,0));
+        assertEquals(t.findIntersections(r).size(), 1, "Wrong number of points");
+
     }
 }

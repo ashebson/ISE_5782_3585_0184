@@ -83,6 +83,15 @@ public class PolygonTests {
 	 */
 	@Test
 	void testFindIntersections() {
-		
+		// ==================== Boundary Values Tests ==================
+		// ** Group: No Intersections
+		// TC01: Ray starts on vertex
+		Polygon p = new Polygon(new Point(1, 0, 0), new Point(-1, 0, 0), new Point(0, 1, 0), new Point(0, -1, 0));
+		Ray r = new Ray(new Point(1, 0, 0), new Vector(1, 1, 1));
+		assertNull(p.findIntersections(r), "Wrong number of points");
+		// TC02: Ray starts on edge
+		p = new Polygon(new Point(0, 0, 1), new Point(2, 0, 0), new Point(0, 1, 0), new Point(0, -2, 0));
+		r = new Ray(new Point(0, 1, 0), new Vector(1, 1, 1));
+		assertNull(p.findIntersections(r), "Wrong number of points");
 	}
 }
