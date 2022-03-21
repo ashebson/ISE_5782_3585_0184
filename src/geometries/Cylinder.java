@@ -5,7 +5,7 @@ import java.util.List;
 import primitives.*;
 
 /**
- * Cylinder class 
+ * Cylinder class
  * 
  * @author Aryeh and Zvi
  */
@@ -19,7 +19,7 @@ public class Cylinder extends Tube {
         super(axisRay, radius);
         this.height = height;
     }
-    
+
     /**
      * getter for the height
      * 
@@ -34,17 +34,17 @@ public class Cylinder extends Tube {
         Point p0 = axisRay.getP0();
         Vector v = axisRay.getDir();
         Vector pp0;
-        try{
+        try {
             pp0 = p.subtract(p0);
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             return v.scale(-1);
         }
         double vpp0 = v.dotProduct(pp0);
-        if (vpp0 == 0){
+        if (Util.isZero(vpp0)) {
             return v.scale(-1);
-        }else if(v.dotProduct(pp0) == height){
+        } else if (Util.isZero(v.dotProduct(pp0) - height)) {
             return v;
-        }else{
+        } else {
             return super.getNormal(p);
         }
     }
