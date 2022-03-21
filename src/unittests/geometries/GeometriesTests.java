@@ -32,7 +32,7 @@ public class GeometriesTests {
             new Tube(new Ray(new Point(0,3,0), new Vector(0,0,1)),1)
         );
         ray = new Ray(new Point(-1, 0, 0), new Vector(3, 1, 0));
-        assertEquals(geometries.findIntersections(ray),1);
+        assertEquals(geometries.findIntersections(ray),1,"Wrong number of points");
         // TC04: All geometries intersect (6 points)
         geometries = new Geometries(
             new Sphere(1, new Point(1, 0, 0)),
