@@ -53,7 +53,6 @@ public class Tube implements Geometry {
 
     @Override
     public List<Point> findIntersections(Ray ray) {
-        // TODO Auto-generated method stub
         return null;
     }
 }

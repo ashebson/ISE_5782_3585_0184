@@ -1,5 +1,6 @@
 package geometries;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import primitives.*;
@@ -91,7 +92,37 @@ public class Polygon implements Geometry {
 
 	@Override
 	public List<Point> findIntersections(Ray ray) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Point> planeIntersections = plane.findIntersections(ray);
+        if (planeIntersections == null)
+            return null;
+        Point p = planeIntersections.get(0);
+		List<Point> ps = vertices;
+        Point p0 = ray.getP0();
+        Vector v = ray.getDir();
+		List<Vector> vs = new ArrayList<Vector>();
+		for(var point: ps){
+			vs.add(point.subtract(p0));
+		}
+		List<Vector> ns = new ArrayList<Vector>();
+		for(int i = 0; i < vs.size(); i++){
+			Vector vi = vs.get(i);
+			Vector vi1 = vs.get((i+1)%vs.size());
+			ns.add(vi.crossProduct(vi1));
+		}
+		List<Double> vns = new ArrayList<Double>();
+		for(var normal: ns){
+			vns.add(normal.dotProduct(v));
+		}
+		// check no product is zero
+		for(var vn: vns){
+			if(Util.isZero(vn))
+				return null;
+		}
+		// check all products have the same sign as v1
+		for (var vn: vns){
+			if (vn > 0 != vns.get(0) > 0)
+				return null;
+		}
+        return List.of(p);
 	}
 }

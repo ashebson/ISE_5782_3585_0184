@@ -4,6 +4,9 @@
 package unittests.geometries;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import geometries.*;
@@ -83,15 +86,33 @@ public class PolygonTests {
 	 */
 	@Test
 	void testFindIntersections() {
-		// ==================== Boundary Values Tests ==================
-		// ** Group: No Intersections
-		// TC01: Ray starts on vertex
-		Polygon p = new Polygon(new Point(1, 0, 0), new Point(-1, 0, 0), new Point(0, 1, 0), new Point(0, -1, 0));
-		Ray r = new Ray(new Point(1, 0, 0), new Vector(1, 1, 1));
-		assertNull(p.findIntersections(r), "Wrong number of points");
-		// TC02: Ray starts on edge
-		p = new Polygon(new Point(0, 0, 1), new Point(2, 0, 0), new Point(0, 1, 0), new Point(0, -2, 0));
-		r = new Ray(new Point(0, 1, 0), new Vector(1, 1, 1));
-		assertNull(p.findIntersections(r), "Wrong number of points");
+		// ============ Equivalence Partitions Tests ==============
+		Polygon p = new Polygon(new Point(-1,7,4),new Point(0,9,1),new Point(7,2,1), new Point(1,1,8));
+        // TC01: Ray intersects triangle (1 point)
+        Ray r = new Ray(new Point(0,-2,0), new Vector(1,1,1));
+		List<Point> result = p.findIntersections(r);
+		List<Point> expected = List.of(new Point(4,2,4));
+		assertEquals(expected, result, "Wrong intersections");
+        // TC02: Ray does not intersect triangle (open) (0 points)
+        r = new Ray(new Point(2,-2,0), new Vector(1,-1,3));
+		result = p.findIntersections(r);
+		assertNull(result, "Wrong intersections");
+        // TC03: Ray does not intersect triangle (open) (0 points)
+        r = new Ray(new Point(-2,-2,0), new Vector(1,-1,3));
+		result = p.findIntersections(r);
+		assertNull(result, "Wrong intersections");
+        // =============== Boundary Values Tests ==================
+        // TC11: Ray intersects triangle on the vertex (0 point)
+        r = new Ray(new Point(1,1,0), new Vector(0,0,1));
+		result = p.findIntersections(r);
+		assertNull(result, "Wrong intersections");
+        // TC12: Ray intersects triangle on the edge (0 point)
+        r = new Ray(new Point(1,1,0), new Vector(-1,3,8));
+		result = p.findIntersections(r);
+		assertNull(result, "Wrong intersections");
+        // TC13: Ray doesn't intersect the triangle but intersects the line of the edge of the triangle (0 point)
+		r = new Ray(new Point(1,1,0), new Vector(1,-3,3));
+		result = p.findIntersections(r);
+		assertNull(result, "Wrong intersections");
 	}
 }
