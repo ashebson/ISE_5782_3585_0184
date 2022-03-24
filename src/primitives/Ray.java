@@ -54,4 +54,13 @@ public class Ray {
     public String toString() {
         return "Ray: " + p0 + ", " + dir;
     }
+
+    /**
+     * gets point t away from the origin
+     * @param t
+     * @return the point
+     */
+    public Point getPoint(double t) {
+        return p0.add(dir.scale(t));
+    }
 }

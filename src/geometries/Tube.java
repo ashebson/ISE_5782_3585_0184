@@ -28,7 +28,7 @@ public class Tube implements Geometry {
         double t = v.dotProduct(p.subtract(p0));
         Point o;
         try{
-            o = p0.add(v.scale(t));
+            o = axisRay.getPoint(t);
         }catch(IllegalArgumentException e){
             o = p0;
         }
