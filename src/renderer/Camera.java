@@ -17,12 +17,12 @@ public class Camera {
      * @param width
      * @param height
      */
-    public Camera(Point p0, Vector vUp, Vector vTo) {
+    public Camera(Point p0, Vector vTo, Vector vUp) {
         if (vUp.dotProduct(vTo) != 0)
             throw new IllegalArgumentException("vUp and vTo must be orthogonal");
         this.vUp = vUp.normalize();
         this.vTo = vTo.normalize();
-        this.vRight = vUp.crossProduct(vTo).normalize();
+        this.vRight = vTo.crossProduct(vUp).normalize();
         this.p0 = p0;
     }
 
@@ -120,6 +120,14 @@ public class Camera {
      * @return ray
      * */
     public Ray constructRay(int nX, int nY, int j, int i){
-        throw new UnsupportedOperationException("Not implemented yet");
+        double rY = height/nY;
+        double rX = width/nX;
+        Point pC = p0.add(vTo.scale(distance));
+        double yI = -(i-((double)nY -1)/2)*rY;
+        double xJ = (j-((double)nX -1)/2)*rX;
+        Point pIJ = pC;
+        if (xJ != 0) pIJ = pIJ.add(vRight.scale(xJ));
+        if (yI != 0) pIJ = pIJ.add(vUp.scale(yI));
+        return new Ray(p0, pIJ.subtract(p0));
     }
 }
