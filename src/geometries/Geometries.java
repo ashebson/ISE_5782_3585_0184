@@ -34,7 +34,7 @@ public class Geometries implements Intersectable {
     public void add(Intersectable... g){
         for (Intersectable geometry : g)
             this.geometries.add(geometry);
-    
+    }
     
 
     @Override
