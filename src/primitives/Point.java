@@ -58,8 +58,9 @@ public class Point {
      * @return double
      */
     public double DistanceSquared(Point p) {
-        return this.xyz.d1 * this.xyz.d1 + this.xyz.d2 * this.xyz.d2
-                + this.xyz.d3 * this.xyz.d3;
+        return (this.xyz.d1 - p.xyz.d1) * (this.xyz.d1 - p.xyz.d1)
+                + (this.xyz.d2 - p.xyz.d2) * (this.xyz.d2 - p.xyz.d2)
+                + (this.xyz.d3 - p.xyz.d3) * (this.xyz.d3 - p.xyz.d3);
     }
 
     /**

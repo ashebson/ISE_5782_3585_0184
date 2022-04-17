@@ -1,6 +1,9 @@
 package unittests.geometries;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import geometries.*;
@@ -32,8 +35,33 @@ public class TriangleTests {
      */
     @Test
     void testFindIntersections() {
-        Triangle t = new Triangle(new Point(0, 0, 1), new Point(3, 0, 0), new Point(0, -2, 0));
         // ============ Equivalence Partitions Tests ==============
-        // TC01: Ray parallel to the triangle
+        // TC01: Ray intersects triangle (1 point)
+        Triangle t = new Triangle(new Point(2,0,0), new Point(0,3,0), new Point(0,0,1));
+        Ray r = new Ray(new Point(1,0,0), new Vector(1,1,1));
+        List<Point> result = t.findIntersections(r);
+        List<Point> expected = List.of(new Point(1.2727272727272727,0.2727272727272727,0.2727272727272727));
+        assertEquals(result, expected, "Wrong intersections");
+        // TC02: Ray does not intersect triangle (open) (0 points)
+        r = new Ray(new Point(1,0,0), new Vector(1,-1,1));
+        result = t.findIntersections(r);
+        assertNull(result, "Wrong intersections");
+        // TC03: Ray does not intersect triangle (open) (0 points)
+        r = new Ray(new Point(-1,-1,0), new Vector(0,0,1));
+        result = t.findIntersections(r);
+        assertNull(result, "Wrong intersections");
+        // =============== Boundary Values Tests ==================
+        // TC11: Ray intersects triangle on the vertex (0 point)
+        r = new Ray(new Point(-1,-1,0), new Vector(1,1,1));
+        result = t.findIntersections(r);
+        assertNull(result, "Wrong intersections");
+        // TC12: Ray intersects triangle on the edge (0 point)
+        r = new Ray(new Point(-1,-1,0), new Vector(4,2,1));
+        result = t.findIntersections(r);
+        assertNull(result, "Wrong intersections");
+        // TC13: Ray doesn't intersect the triangle but intersects the line of the edge of the triangle (0 point)
+        r = new Ray(new Point(-1,-1,0), new Vector(0,2,3));
+        result = t.findIntersections(r);
+        assertNull(result, "Wrong intersections");
     }
 }

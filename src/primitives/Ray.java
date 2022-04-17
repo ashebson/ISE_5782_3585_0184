@@ -31,7 +31,7 @@ public class Ray {
         if (getClass() != obj.getClass())
             return false;
         Ray other = (Ray) obj;
-        return p0.equals(other.p0);
+        return p0.equals(other.p0) && dir.equals(other.dir);
     }
 
     /**
@@ -53,5 +53,14 @@ public class Ray {
     @Override
     public String toString() {
         return "Ray: " + p0 + ", " + dir;
+    }
+
+    /**
+     * gets point t away from the origin
+     * @param t
+     * @return the point
+     */
+    public Point getPoint(double t) {
+        return p0.add(dir.scale(t));
     }
 }

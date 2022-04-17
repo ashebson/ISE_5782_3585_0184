@@ -37,4 +37,27 @@ public class PointTests {
         Point p2 = new Point(2, 3, 4);
         assertTrue(v1.equals(p2.subtract(p1)), "Point - Point does not work correctly");
     }
+    /**
+     * Test method for {@link primitives.Point#Distance(primitives.Point)}.
+     */
+    @Test
+    void testDistance() {
+        // ============ Equivalence Partitions Tests ==============
+        // TC01: Correct distance between two points
+        Point p1 = new Point(1, 1, 0);
+        Point p2 = new Point(5, 4, 0);
+        assertEquals(p1.Distance(p2),5, "Distance between two points is wrong");
+    }
+
+    /**
+     * Test method for {@link primitives.Point#DistanceSquared(primitives.Point)}.
+     */
+    @Test
+    void testDistanceSquared() {
+        // ============ Equivalence Partitions Tests ==============
+        // TC01: Correct distance squared between two points
+        Point p1 = new Point(1, 1, 0);
+        Point p2 = new Point(5, 4, 0);
+        assertEquals(p1.DistanceSquared(p2),25, "Distance squared between two points is wrong");
+    }
 }
