@@ -93,5 +93,6 @@ public class PolygonTests {
 		p = new Polygon(new Point(0, 0, 1), new Point(2, 0, 0), new Point(0, 1, 0), new Point(0, -2, 0));
 		r = new Ray(new Point(0, 1, 0), new Vector(1, 1, 1));
 		assertNull(p.findIntersections(r), "Wrong number of points");
+
 	}
 }
