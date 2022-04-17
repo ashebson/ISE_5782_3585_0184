@@ -32,6 +32,8 @@ public class TriangleTests {
      */
     @Test
     void testFindIntersections() {
-        
+        Triangle t = new Triangle(new Point(0, 0, 1), new Point(3, 0, 0), new Point(0, -2, 0));
+        // ============ Equivalence Partitions Tests ==============
+        // TC01: Ray parallel to the triangle
     }
 }
