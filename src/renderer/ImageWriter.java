@@ -20,8 +20,8 @@ import javax.imageio.*;
 public class ImageWriter {
 	private int nX;
 	private int nY;
-
-	private static final String FOLDER_PATH = System.getProperty("user.dir") + "/images";
+	
+	private static final String FOLDER_PATH = "ISE_5782_3585_0184\\images"; //System.getProperty("user.dir") + "\\images";
 
 	private BufferedImage image;
 	private String imageName;
