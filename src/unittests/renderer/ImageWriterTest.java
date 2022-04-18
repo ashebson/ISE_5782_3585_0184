@@ -5,18 +5,21 @@ import java.awt.Color;
 import renderer.ImageWriter;
 
 public class ImageWriterTest {
+    /**
+     * Test method for {@link renderer.ImageWriter#writeToImage()}.
+     */
     @Test
-    public void GeneralTest(){
-        ImageWriter iw = new ImageWriter("test.jpeg", 800, 500);
+    public void writeImageTest(){
+        ImageWriter imageWriter = new ImageWriter("test", 800, 500);
         for (int i = 0; i < 800; i++){
             for (int j = 0; j < 500; j++){
                 if (i% 50 == 0 || j % 50 == 0){
-                    iw.writePixel(i, j, new primitives.Color(Color.RED));
+                    imageWriter.writePixel(i, j, new primitives.Color(Color.RED));
                 }else{
-                    iw.writePixel(i, j, new primitives.Color(Color.YELLOW));
+                    imageWriter.writePixel(i, j, new primitives.Color(Color.YELLOW));
                 }
             }
         }
-        iw.writeToImage();
+        imageWriter.writeToImage();
     }
 }

@@ -2,6 +2,8 @@ package geometries;
 
 import java.util.List;
 
+import org.w3c.dom.Element;
+
 import primitives.Point;
 import primitives.Ray;
 import primitives.Util;
@@ -24,9 +26,24 @@ public class Sphere implements Geometry {
     public Vector getNormal(Point p) {
         return p.subtract(center).scale(1/radius);
     }
+
+    /**
+     * Constructor
+     * @param radius
+     * @param center
+     */
     public Sphere (double radius, Point center) {
         this.center = center;
         this.radius = radius;
+    }
+
+    /**
+     * Constructor
+     * @param element
+     */
+    public Sphere (Element element){
+        center = new Point(element.getAttribute("center"));
+        radius = Double.parseDouble(element.getAttribute("radius"));
     }
 
     /**

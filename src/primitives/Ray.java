@@ -1,5 +1,7 @@
 package primitives;
 
+import java.util.List;
+
 /**
  * Ray class
  * 
@@ -62,5 +64,23 @@ public class Ray {
      */
     public Point getPoint(double t) {
         return p0.add(dir.scale(t));
+    }
+
+    /**
+     * gets the closest intersection point to the ray
+     * @param geometries
+     * @return the point
+     */
+    public Point findClosestPoint(List<Point> points) {
+        Point closestPoint = null;
+        double minDistanceSquared = Double.MAX_VALUE;
+        for (Point point : points) {
+            double distanceSqaured = point.DistanceSquared(p0);
+            if (distanceSqaured < minDistanceSquared) {
+                minDistanceSquared = distanceSqaured;
+                closestPoint = point;
+            }
+        }
+        return closestPoint;
     }
 }
