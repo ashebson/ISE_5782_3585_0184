@@ -7,7 +7,7 @@ package primitives;
  */
 public class Point {
     final protected Double3 xyz;
-
+    public static Point ZERO = new Point(Double3.ZERO);
     /**
      * constructor with Double3
      * 
@@ -26,6 +26,15 @@ public class Point {
      */
     public Point(double x, double y, double z) {
         xyz = new Double3(x, y, z);
+    }
+
+    /**
+     * constructor with string
+     * 
+     * @param string
+     */
+    public Point(String string) {
+        xyz = new Double3(string);
     }
 
     /**

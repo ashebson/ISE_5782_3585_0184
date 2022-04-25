@@ -18,7 +18,7 @@ public class Double3 {
 	/**
 	 * Zero triad (0,0,0)
 	 */
-	static final Double3 ZERO = new Double3(0, 0, 0);
+	public static final Double3 ZERO = new Double3(0, 0, 0);
 
 	/**
 	 * Constructor to initialize Double3 based object with its three number values
@@ -27,10 +27,34 @@ public class Double3 {
 	 * @param d2 second number value
 	 * @param d3 third number value
 	 */
-	protected Double3(double d1, double d2, double d3) {
+	public Double3(double d1, double d2, double d3) {
 		this.d1 = d1;
 		this.d2 = d2;
 		this.d3 = d3;
+	}
+
+	/**
+	 * Constructor to initialize Double3 based object the same number values
+	 * 
+	 * @param value number value for all 3 numbers
+	 */
+	public Double3(double value) {
+		this.d1 = value;
+		this.d2 = value;
+		this.d3 = value;
+	}
+
+	/**
+	 * Constructor to initialize Double3 based object with a string
+	 * @param string
+	 */
+	public Double3(String string){
+		String[] split = string.split(" ");
+		if (split.length != 3)
+			throw new IllegalArgumentException("String must contain 3 numbers");
+		this.d1 = Double.parseDouble(split[0]);
+		this.d2 = Double.parseDouble(split[1]);
+		this.d3 = Double.parseDouble(split[2]);
 	}
 
 	@Override
@@ -62,7 +86,7 @@ public class Double3 {
 	 * @param rhs right handle side operand for addition
 	 * @return result of add
 	 */
-	Double3 add(Double3 rhs) {
+	public Double3 add(Double3 rhs) {
 		return new Double3(d1 + rhs.d1, d2 + rhs.d2, d3 + rhs.d3);
 	}
 
@@ -73,7 +97,7 @@ public class Double3 {
 	 * @param rhs right handle side operand for addition
 	 * @return result of add
 	 */
-	Double3 subtract(Double3 rhs) {
+	public Double3 subtract(Double3 rhs) {
 		return new Double3(d1 - rhs.d1, d2 - rhs.d2, d3 - rhs.d3);
 	}
 
@@ -84,7 +108,7 @@ public class Double3 {
 	 * @param rhs right handle side operand for scaling
 	 * @return result of scale
 	 */
-	Double3 scale(double rhs) {
+	public Double3 scale(double rhs) {
 		return new Double3(d1 * rhs, d2 * rhs, d3 * rhs);
 	}
 
@@ -95,7 +119,7 @@ public class Double3 {
 	 * @param rhs right handle side operand for reducing
 	 * @return result of scale
 	 */
-	Double3 reduce(double rhs) {
+	public Double3 reduce(double rhs) {
 		return new Double3(d1 / rhs, d2 / rhs, d3 / rhs);
 	}
 
@@ -106,7 +130,7 @@ public class Double3 {
 	 * @param rhs right handle side operand for product
 	 * @return result of product
 	 */
-	Double3 product(Double3 rhs) {
+	public Double3 product(Double3 rhs) {
 		return new Double3(d1 * rhs.d1, d2 * rhs.d2, d3 * rhs.d3);
 	}
 

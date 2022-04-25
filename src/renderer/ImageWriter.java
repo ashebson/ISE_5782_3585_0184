@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.nio.file.Paths;
 
 import javax.imageio.*;
 
@@ -21,7 +22,7 @@ public class ImageWriter {
 	private int nX;
 	private int nY;
 	
-	private static final String FOLDER_PATH = "ISE_5782_3585_0184\\images"; //System.getProperty("user.dir") + "\\images";
+	private static final String FOLDER_PATH = "/Users/aryehshebson/Desktop/Degree/Minip SE/Project/ISE_5782_3585_0184/images";
 
 	private BufferedImage image;
 	private String imageName;

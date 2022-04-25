@@ -2,6 +2,8 @@ package geometries;
 
 import java.util.List;
 
+import org.w3c.dom.Element;
+
 import primitives.*;
 
 /**
@@ -15,6 +17,14 @@ public class Triangle extends Polygon {
      */
     public Triangle(Point p1, Point p2, Point p3) {
         super(p1, p2, p3);
+    }
+
+    public Triangle(Element element){
+        super(
+            new Point(element.getAttribute("p0")),
+            new Point(element.getAttribute("p1")),
+            new Point(element.getAttribute("p2"))
+        );
     }
 
     @Override
