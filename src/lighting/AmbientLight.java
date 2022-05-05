@@ -4,13 +4,12 @@ import org.w3c.dom.Element;
 
 import primitives.*;
 
-public class AmbientLight {
-    Color intensity;
+public class AmbientLight extends Light{
     /**
      * Constructor
      */
     public AmbientLight() {
-        intensity = Color.BLACK;
+        super(Color.BLACK);
     }
 
     /**
@@ -19,18 +18,10 @@ public class AmbientLight {
      * @param intensity
      */
     public AmbientLight(Color iA, Double3 kA) {
-        intensity = iA.scale(kA);
+        super(iA.scale(kA));
     }
 
-    public AmbientLight(Element element){
-        intensity = new Color(element.getAttribute("color"));
-    }
-
-    /**
-     * getter for intensity
-     * @return intensity
-     */
-    public Color getIntensity() {
-        return intensity;
-    }
+    // public AmbientLight(Element element){
+    //     intensity = new Color(element.getAttribute("color"));
+    // }
 }

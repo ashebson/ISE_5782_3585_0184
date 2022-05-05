@@ -1,5 +1,6 @@
 package geometries;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.w3c.dom.Element;
@@ -19,16 +20,17 @@ public class Triangle extends Polygon {
         super(p1, p2, p3);
     }
 
-    public Triangle(Element element){
-        super(
-            new Point(element.getAttribute("p0")),
-            new Point(element.getAttribute("p1")),
-            new Point(element.getAttribute("p2"))
-        );
-    }
+    // public Triangle(Element element){
+    //     super(
+    //         new Point(element.getAttribute("p0")),
+    //         new Point(element.getAttribute("p1")),
+    //         new Point(element.getAttribute("p2"))
+    //     );
+    // }
+
 
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray){
         List<Point> planeIntersections = plane.findIntersections(ray);
         if (planeIntersections == null)
             return null;
@@ -50,7 +52,7 @@ public class Triangle extends Polygon {
         if (Util.isZero(vn1) || Util.isZero(vn2) || Util.isZero(vn3))
             return null;
         if ((vn1 > 0 == vn2 > 0) && (vn1 > 0 == vn3 > 0))
-            return List.of(p);
+            return List.of(new GeoPoint(this,p));
         return null;
     }
 }

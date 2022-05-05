@@ -1,5 +1,6 @@
 package geometries;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.w3c.dom.Element;
@@ -13,7 +14,7 @@ import primitives.Vector;
  * 
  * @author Aryeh and Zvi
  */
-public class Sphere implements Geometry {
+public class Sphere extends Geometry {
     Point center;
     double radius;
     
@@ -32,19 +33,19 @@ public class Sphere implements Geometry {
      * @param radius
      * @param center
      */
-    public Sphere (double radius, Point center) {
+    public Sphere (Point center, double radius) {
         this.center = center;
         this.radius = radius;
     }
 
-    /**
-     * Constructor
-     * @param element
-     */
-    public Sphere (Element element){
-        center = new Point(element.getAttribute("center"));
-        radius = Double.parseDouble(element.getAttribute("radius"));
-    }
+    // /**
+    //  * Constructor
+    //  * @param element
+    //  */
+    // public Sphere (Element element){
+    //     center = new Point(element.getAttribute("center"));
+    //     radius = Double.parseDouble(element.getAttribute("radius"));
+    // }
 
     /**
      * getter for the center point
@@ -63,7 +64,7 @@ public class Sphere implements Geometry {
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray){
         Point p0 = ray.getP0();
         Vector v = ray.getDir();
         Vector u;
@@ -71,7 +72,8 @@ public class Sphere implements Geometry {
             u = center.subtract(p0);
         }catch(IllegalArgumentException e){
             Point p = center.add(v.scale(radius));
-            return List.of(p);
+            GeoPoint gp = new GeoPoint(this, p);
+            return List.of(gp);
         }
         double tm = v.dotProduct(u);
         double d2 = u.lengthSquared() - tm*tm;
@@ -86,13 +88,17 @@ public class Sphere implements Geometry {
         if (t1 > 0 && t2 > 0){
             Point p1 = ray.getPoint(t1);
             Point p2 = ray.getPoint(t2);
-            return List.of(p1,p2);
+            GeoPoint gp1 = new GeoPoint(this, p1);
+            GeoPoint gp2 = new GeoPoint(this, p2);
+            return List.of(gp1,gp2);
         }else if(t1 > 0 && t2 <= 0){
             Point p1 = ray.getPoint(t1);
-            return List.of(p1);
+            GeoPoint gp1 = new GeoPoint(this, p1);
+            return List.of(gp1);
         }else if(t1 <= 0 && t2 > 0){
             Point p2 = ray.getPoint(t2);
-            return List.of(p2);
+            GeoPoint gp2 = new GeoPoint(this, p2);
+            return List.of(gp2);
         }else{
             return null;
         }

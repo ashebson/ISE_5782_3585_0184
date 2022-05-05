@@ -40,7 +40,7 @@ public class Vector extends Point {
      * @return the sum of this vector and v
      */
     public Vector add(Vector v) {
-        return this.add(v);
+        return new Vector(xyz.add(v.xyz));
     }
 
     /**
@@ -50,7 +50,7 @@ public class Vector extends Point {
      * @return this vector minus v
      */
     public Vector subtract(Vector v) {
-        return this.subtract(v);
+        return new Vector(xyz.subtract(v.xyz));
     }
 
     /**

@@ -44,19 +44,6 @@ public class Double3 {
 		this.d3 = value;
 	}
 
-	/**
-	 * Constructor to initialize Double3 based object with a string
-	 * @param string
-	 */
-	public Double3(String string){
-		String[] split = string.split(" ");
-		if (split.length != 3)
-			throw new IllegalArgumentException("String must contain 3 numbers");
-		this.d1 = Double.parseDouble(split[0]);
-		this.d2 = Double.parseDouble(split[1]);
-		this.d3 = Double.parseDouble(split[2]);
-	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

@@ -2,6 +2,8 @@ package primitives;
 
 import java.util.List;
 
+import geometries.Intersectable.GeoPoint;
+
 /**
  * Ray class
  * 
@@ -30,7 +32,7 @@ public class Ray {
             return true;
         if (obj == null)
             return false;
-        if (getClass() != obj.getClass())
+        if (!(obj instanceof Ray))
             return false;
         Ray other = (Ray) obj;
         return p0.equals(other.p0) && dir.equals(other.dir);
@@ -72,15 +74,20 @@ public class Ray {
      * @return the point
      */
     public Point findClosestPoint(List<Point> points) {
-        Point closestPoint = null;
+        return points == null || points.isEmpty() ? null
+               : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
+    }
+
+    public GeoPoint findClosestGeoPoint(List<GeoPoint> geoPoints) {
+        GeoPoint closestGeoPoint = null;
         double minDistanceSquared = Double.MAX_VALUE;
-        for (Point point : points) {
-            double distanceSqaured = point.DistanceSquared(p0);
+        for (GeoPoint geoPoint : geoPoints) {
+            double distanceSqaured = geoPoint.point.DistanceSquared(p0);
             if (distanceSqaured < minDistanceSquared) {
                 minDistanceSquared = distanceSqaured;
-                closestPoint = point;
+                closestGeoPoint = geoPoint;
             }
         }
-        return closestPoint;
+        return closestGeoPoint;
     }
 }

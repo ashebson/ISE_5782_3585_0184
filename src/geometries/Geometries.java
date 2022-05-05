@@ -12,7 +12,7 @@ import primitives.*;
 /**
  * Intersectable Interface
  */
-public class Geometries implements Intersectable {
+public class Geometries extends Intersectable {
     private List<Intersectable> geometries;
 
     /**
@@ -36,26 +36,26 @@ public class Geometries implements Intersectable {
      * constructor with a element
      * @param element
      */
-    public Geometries(Element geometriesElement){
-        geometries = new ArrayList<Intersectable>();
-        NodeList elements = geometriesElement.getChildNodes();
-        for (int i = 0; i < elements.getLength(); i++){
-            if (elements.item(i) instanceof Element){
-                Element element = (Element) elements.item(i);
-                switch(element.getNodeName()){
-                    case "sphere":
-                        geometries.add(new Sphere(element));
-                        break;
-                    case "triangle":
-                        geometries.add(new Triangle(element));
-                        break;
-                    default:
-                        break;
-                }
-            }
+    // public Geometries(Element geometriesElement){
+    //     geometries = new ArrayList<Intersectable>();
+    //     NodeList elements = geometriesElement.getChildNodes();
+    //     for (int i = 0; i < elements.getLength(); i++){
+    //         if (elements.item(i) instanceof Element){
+    //             Element element = (Element) elements.item(i);
+    //             switch(element.getNodeName()){
+    //                 case "sphere":
+    //                     geometries.add(new Sphere(element));
+    //                     break;
+    //                 case "triangle":
+    //                     geometries.add(new Triangle(element));
+    //                     break;
+    //                 default:
+    //                     break;
+    //             }
+    //         }
             
-        }
-    }
+    //     }
+    // }
 
     /**
      * add a geometry to the list
@@ -66,7 +66,6 @@ public class Geometries implements Intersectable {
             this.geometries.add(geometry);
     }
     
-
     @Override
     public List<Point> findIntersections(Ray ray) {
         List<Point> intersections = new LinkedList<Point>();
@@ -82,4 +81,18 @@ public class Geometries implements Intersectable {
         return intersections;
     }
     
+    @Override
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray){
+        List<GeoPoint> intersections = new LinkedList<GeoPoint>();
+        List<GeoPoint> intersectableIntersections;
+        for (Intersectable intersectable : geometries) {
+            intersectableIntersections = intersectable.findGeoIntersections(ray);
+            if (intersectableIntersections != null) {
+                intersections.addAll(intersectableIntersections);
+            }
+        }
+        if(intersections.size() == 0)
+            return null;
+        return intersections;
+    }
 }

@@ -21,7 +21,7 @@ public class GeometriesTests {
         assertNull(geometries.findIntersections(ray), "Wrong number of points");
         // TC02: No intersections (0 points)
         geometries = new Geometries(
-            new Sphere(1, new Point(1, 0, 0)),
+            new Sphere(new Point(1, 0, 0),1),
             new Plane(new Point(3,0,0),new Vector(1,0,0)),
             new Triangle(new Point(4,0,0), new Point(4,0,2), new Point(4,2,0)),
             new Polygon(new Point(5,0,0),new Point(5,0,2),new Point(5,2,2), new Point(5,2,0))

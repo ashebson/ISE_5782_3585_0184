@@ -24,7 +24,7 @@ public class SphereTests {
         Point o = new Point(0,0,0);
         Point p = new Point(1,0,0);
         double r = 1;
-        Sphere s = new Sphere(r, o);
+        Sphere s = new Sphere(o,r);
         Vector n = s.getNormal(p);
         // TC01: Correct normal
         assertEquals(new Vector(1,0,0), n, "Wrong normal");
@@ -35,7 +35,7 @@ public class SphereTests {
      */
     @Test
     public void testFindIntersections() {
-        Sphere sphere = new Sphere(1d, new Point (1, 0, 0));
+        Sphere sphere = new Sphere(new Point (1, 0, 0),1d);
 
         // ============ Equivalence Partitions Tests ==============
 

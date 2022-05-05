@@ -33,9 +33,9 @@ public class Point {
      * 
      * @param string
      */
-    public Point(String string) {
-        xyz = new Double3(string);
-    }
+    // public Point(String string) {
+    //     xyz = new Double3(string);
+    // }
 
     /**
      * subtracts a point from this point and returns the vector result

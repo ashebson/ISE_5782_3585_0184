@@ -2,6 +2,7 @@ package scene;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.w3c.dom.Document;
@@ -22,6 +23,7 @@ public class Scene {
     public Color background = Color.BLACK;
     public AmbientLight ambientLight = new AmbientLight();
     public Geometries geometries = new Geometries();
+    public List<LightSource> lights = new LinkedList<LightSource>();
 
     /**
      * Constructor
@@ -38,19 +40,19 @@ public class Scene {
      * @throws SAXException
      * @throws IOException
      */
-    public Scene(String name, File file) throws ParserConfigurationException, SAXException, IOException{
-        this.name = name;
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        Document doc = builder.parse(file);
-        doc.getDocumentElement().normalize();
-        Element rootElement = doc.getDocumentElement();
-        Element ambientLightElement = (Element) rootElement.getElementsByTagName("ambient-light").item(0);
-        Element geometriesElement = (Element) rootElement.getElementsByTagName("geometries").item(0);
-        background = new Color(rootElement.getAttribute("background-color"));
-        ambientLight = new AmbientLight(ambientLightElement);
-        geometries = new Geometries(geometriesElement);
-    }
+    // public Scene(String name, File file) throws ParserConfigurationException, SAXException, IOException{
+    //     this.name = name;
+    //     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+    //     DocumentBuilder builder = factory.newDocumentBuilder();
+    //     Document doc = builder.parse(file);
+    //     doc.getDocumentElement().normalize();
+    //     Element rootElement = doc.getDocumentElement();
+    //     Element ambientLightElement = (Element) rootElement.getElementsByTagName("ambient-light").item(0);
+    //     Element geometriesElement = (Element) rootElement.getElementsByTagName("geometries").item(0);
+    //     background = new Color(rootElement.getAttribute("background-color"));
+    //     ambientLight = new AmbientLight(ambientLightElement);
+    //     geometries = new Geometries(geometriesElement);
+    // }
 
     /**
      * setter for background
@@ -79,6 +81,16 @@ public class Scene {
      */
     public Scene setGeometries(Geometries geometries) {
         this.geometries = geometries;
+        return this;
+    }
+
+    /**
+     * setter for lights
+     * @param lights
+     * @return this
+     */
+    public Scene setLights(List<LightSource> lights) {
+        this.lights = lights;
         return this;
     }
 }

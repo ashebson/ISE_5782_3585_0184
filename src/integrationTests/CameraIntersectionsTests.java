@@ -1,4 +1,4 @@
-package unittests.integrationTests;
+package integrationTests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -45,27 +45,27 @@ public class CameraIntersectionsTests {
     @Test
     public void CameraSphereIntersectionsTests() {
         // TC01: Camera behind sphere (2 points)
-        Sphere s = new Sphere(1, new Point(0, 0, -3));
+        Sphere s = new Sphere(new Point(0, 0, -3),1);
         Camera c = new Camera(new Point(0, 0, 0), new Vector(0, 0, -1), new Vector(0, 1, 0)).setDistance(1)
                 .setWidthAndHeight(3, 3);
         assertCameraIntersectionCount(c, s, 2);
         // TC02: View plane in sphere, big sphere (18 points)
-        s = new Sphere(2.5, new Point(0, 0, -2.5));
+        s = new Sphere(new Point(0, 0, -2.5),2.5);
         c = new Camera(new Point(0, 0, 0.5), new Vector(0, 0, -1), new Vector(0, 1, 0)).setDistance(1)
                 .setWidthAndHeight(3, 3);
         assertCameraIntersectionCount(c, s, 18);
         // TC03: View plane in sphere, small sphere (10 points)
-        s = new Sphere(2, new Point(0, 0, -2));
+        s = new Sphere(new Point(0, 0, -2),2);
         c = new Camera(new Point(0, 0, 0.5), new Vector(0, 0, -1), new Vector(0, 1, 0)).setDistance(1)
                 .setWidthAndHeight(3, 3);
         assertCameraIntersectionCount(c, s, 10);
         // TC04: View plane and camera in sphere (9 points)
-        s = new Sphere(4, new Point(0, 0, -0.5));
+        s = new Sphere(new Point(0, 0, -0.5),4);
         c = new Camera(new Point(0, 0, 0.5), new Vector(0, 0, -1), new Vector(0, 1, 0)).setDistance(1)
                 .setWidthAndHeight(3, 3);
         assertCameraIntersectionCount(c, s, 9);
         // TC05: Camera infront of sphere (0 points)
-        s = new Sphere(0.5, new Point(0, 0, 1));
+        s = new Sphere(new Point(0, 0, 1),0.5);
         c = new Camera(new Point(0, 0, 0.5), new Vector(0, 0, -1), new Vector(0, 1, 0)).setDistance(1)
                 .setWidthAndHeight(3, 3);
         assertCameraIntersectionCount(c, s, 0);

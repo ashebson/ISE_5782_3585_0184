@@ -1,5 +1,6 @@
 package geometries;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import primitives.*;
@@ -9,7 +10,7 @@ import primitives.*;
  * 
  * @author Aryeh and Zvi
  */
-public class Tube implements Geometry {
+public class Tube extends Geometry {
     Ray axisRay;
     double radius;
 
@@ -52,7 +53,7 @@ public class Tube implements Geometry {
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray){
         return null;
     }
 }

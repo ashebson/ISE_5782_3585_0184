@@ -64,15 +64,6 @@ public class Color {
 	}
 
 	/**
-	 * Constructor on base of string
-	 * 
-	 * @param string
-	 */
-	public Color(String string){
-		rgb = new Double3(string);
-	}
-
-	/**
 	 * Color getter - returns the color after converting it into java.awt.Color
 	 * object During the conversion any component bigger than 255 is set to 255
 	 *
