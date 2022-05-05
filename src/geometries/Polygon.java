@@ -124,11 +124,6 @@ public class Polygon extends Geometry {
 			if (vn > 0 != vns.get(0) > 0)
 				return null;
 		}
-<<<<<<< HEAD
         return List.of(new GeoPoint(this, p));
     }
-=======
-		return List.of(p);
-	}
->>>>>>> 373d8da44d5d47967ad782135b03c5dac76c2a1a
 }
