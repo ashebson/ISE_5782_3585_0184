@@ -16,7 +16,7 @@ public class ImageWriterTest {
                 if (i% 50 == 0 || j % 50 == 0){
                     imageWriter.writePixel(i, j, new primitives.Color(Color.RED));
                 }else{
-                    imageWriter.writePixel(i, j, new primitives.Color(Color.YELLOW));
+                    imageWriter.writePixel(i, j, new primitives.Color(Color.BLUE));
                 }
             }
         }
