@@ -98,32 +98,37 @@ public class Polygon extends Geometry {
             return null;
         Point p = planeIntersections.get(0);
 		List<Point> ps = vertices;
-        Point p0 = ray.getP0();
-        Vector v = ray.getDir();
+		Point p0 = ray.getP0();
+		Vector v = ray.getDir();
 		List<Vector> vs = new ArrayList<Vector>();
-		for(var point: ps){
+		for (var point : ps) {
 			vs.add(point.subtract(p0));
 		}
 		List<Vector> ns = new ArrayList<Vector>();
-		for(int i = 0; i < vs.size(); i++){
+		for (int i = 0; i < vs.size(); i++) {
 			Vector vi = vs.get(i);
-			Vector vi1 = vs.get((i+1)%vs.size());
+			Vector vi1 = vs.get((i + 1) % vs.size());
 			ns.add(vi.crossProduct(vi1));
 		}
 		List<Double> vns = new ArrayList<Double>();
-		for(var normal: ns){
+		for (var normal : ns) {
 			vns.add(normal.dotProduct(v));
 		}
 		// check no product is zero
-		for(var vn: vns){
-			if(Util.isZero(vn))
+		for (var vn : vns) {
+			if (Util.isZero(vn))
 				return null;
 		}
 		// check all products have the same sign as v1
-		for (var vn: vns){
+		for (var vn : vns) {
 			if (vn > 0 != vns.get(0) > 0)
 				return null;
 		}
+<<<<<<< HEAD
         return List.of(new GeoPoint(this, p));
     }
+=======
+		return List.of(p);
+	}
+>>>>>>> 373d8da44d5d47967ad782135b03c5dac76c2a1a
 }
