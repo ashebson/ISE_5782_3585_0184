@@ -4,8 +4,13 @@ import primitives.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 
 import javax.imageio.*;
@@ -22,8 +27,7 @@ public class ImageWriter {
 	private int nX;
 	private int nY;
 	
-	private static final String FOLDER_PATH = "C:\\Users\\zviko\\Desktop\\Java Projects\\Malat\\ISE_5782_3585_0184\\images";
-
+	private static String FOLDER_PATH;
 	private BufferedImage image;
 	private String imageName;
 	
@@ -35,8 +39,15 @@ public class ImageWriter {
 	 * @param imageName the name of jpeg file
 	 * @param nX        amount of pixels by Width
 	 * @param nY        amount of pixels by height
+	 * @throws UnsupportedEncodingException
 	 */
-	public ImageWriter(String imageName, int nX, int nY) {
+	public ImageWriter(String imageName, int nX, int nY){
+		try {
+			FOLDER_PATH = java.net.URLDecoder.decode(new File(new File(ClassLoader.getSystemResource(".").getPath()).getParentFile(),"images").getPath(),"UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.imageName = imageName;
 		this.nX = nX;
 		this.nY = nY;
