@@ -1,5 +1,7 @@
 package renderer;
 
+import static org.junit.Assume.assumeTrue;
+
 import java.util.List;
 
 import geometries.Intersectable.GeoPoint;
@@ -67,7 +69,7 @@ public class RayTracerBasic extends RayTracerBase {
             double nl = n.dotProduct(l);
             double vn = v.dotProduct(n);
             if (nl * vn > 0) {
-                if (unshaded(geoPoint, l, n)) {
+                if (true || unshaded(geoPoint, l, n)) {
                     Double3 diff = calcDiffusive(material, nl);
                     Double3 spec = calcSpecular(material, nl, n, l, v);
                     Color Il = light.getIntensity(geoPoint.point).scale(diff.add(spec));
@@ -110,7 +112,6 @@ public class RayTracerBasic extends RayTracerBase {
     public boolean unshaded(GeoPoint geopoint, Vector l, Vector n) {
         Vector lightDirection = l.scale(-1);
         Ray lightRay = new Ray(geopoint.point, lightDirection);
-
         return scene.geometries.findGeoIntersections(lightRay) == null;
     }
 }
