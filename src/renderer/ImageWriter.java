@@ -37,6 +37,7 @@ public class ImageWriter {
 	 * @throws UnsupportedEncodingException
 	 */
 	public ImageWriter(String imageName, int nX, int nY){
+		System.out.println(FOLDER_PATH);
 		this.imageName = imageName;
 		this.nX = nX;
 		this.nY = nY;
