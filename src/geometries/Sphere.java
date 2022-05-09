@@ -5,10 +5,7 @@ import java.util.List;
 
 import org.w3c.dom.Element;
 
-import primitives.Point;
-import primitives.Ray;
-import primitives.Util;
-import primitives.Vector;
+import primitives.*;
 /**
  * Sphere class
  * 
@@ -92,7 +89,13 @@ public class Sphere extends Geometry {
             GeoPoint gp2 = new GeoPoint(this, p2);
             return List.of(gp1,gp2);
         }else if(t1 > 0 && t2 <= 0){
-            Point p1 = ray.getPoint(t1);
+            Point p1 = new Point(0,0,0);
+            try{
+                p1 = ray.getPoint(t1);
+            }catch (IllegalArgumentException e){
+                System.out.println("t1: " + t1);
+                p1 = ray.getPoint(t1);
+            }
             GeoPoint gp1 = new GeoPoint(this, p1);
             return List.of(gp1);
         }else if(t1 <= 0 && t2 > 0){
