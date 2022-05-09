@@ -50,6 +50,9 @@ public class ImageWriter {
 	 * @throws UnsupportedEncodingException
 	 */
 	public ImageWriter(String imageName, int nX, int nY){
+		System.out.println(FOLDER_PATH);
+		System.out.println(new File(".").getAbsolutePath());
+		System.out.println(System.getProperty("user.dir") );
 		this.imageName = imageName;
 		this.nX = nX;
 		this.nY = nY;
