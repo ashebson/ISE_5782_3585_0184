@@ -12,6 +12,7 @@ import scene.Scene;
  */
 public class RayTracerBasic extends RayTracerBase {
     private static final double DELTA = 0.1;
+
     /**
      * Constructor
      * 
@@ -66,10 +67,12 @@ public class RayTracerBasic extends RayTracerBase {
             double nl = n.dotProduct(l);
             double vn = v.dotProduct(n);
             if (nl * vn > 0) {
-                Double3 diff = calcDiffusive(material, nl);
-                Double3 spec = calcSpecular(material, nl, n, l, v);
-                Color Il = light.getIntensity(geoPoint.point).scale(diff.add(spec));
-                Ils = Ils.add(Il);
+                if (unshaded(geoPoint, l, n)) {
+                    Double3 diff = calcDiffusive(material, nl);
+                    Double3 spec = calcSpecular(material, nl, n, l, v);
+                    Color Il = light.getIntensity(geoPoint.point).scale(diff.add(spec));
+                    Ils = Ils.add(Il);
+                }
             }
         }
         return Ie.add(Ils);
@@ -104,7 +107,10 @@ public class RayTracerBasic extends RayTracerBase {
      * @param n
      * @return if is unshaded
      */
-    public boolean unshaded(GeoPoint gp, Vector l, Vector n) {
-        throw new UnsupportedOperationException();
+    public boolean unshaded(GeoPoint geopoint, Vector l, Vector n) {
+        Vector lightDirection = l.scale(-1);
+        Ray lightRay = new Ray(geopoint.point, lightDirection);
+
+        return scene.geometries.findGeoIntersections(lightRay) == null;
     }
 }

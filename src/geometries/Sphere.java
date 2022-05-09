@@ -83,8 +83,8 @@ public class Sphere extends Geometry {
         double th = Math.sqrt(r2-d2);
         double t1 = tm + th;
         double t2 = tm - th;
-        Util.alignZero(t1);
-        Util.alignZero(t2);
+        t1 = Util.alignZero(t1);
+        t2 = Util.alignZero(t2);
         if (t1 > 0 && t2 > 0){
             Point p1 = ray.getPoint(t1);
             Point p2 = ray.getPoint(t2);
