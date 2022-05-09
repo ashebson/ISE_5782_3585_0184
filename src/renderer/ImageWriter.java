@@ -27,11 +27,19 @@ public class ImageWriter {
 	private int nX;
 	private int nY;
 	
-	private static String FOLDER_PATH;
+	private final static String FOLDER_PATH = getImagesFolderPath();
 	private BufferedImage image;
 	private String imageName;
 	
 	private Logger logger = Logger.getLogger("ImageWriter");
+
+	private static String getImagesFolderPath(){
+		try {
+			return java.net.URLDecoder.decode(new File(new File(ClassLoader.getSystemResource(".").getPath()).getParentFile(),"images").getPath(),"UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException("Failed to get path");
+		}
+	}
 
 	// ***************** Constructors ********************** //
 	/**
@@ -42,12 +50,6 @@ public class ImageWriter {
 	 * @throws UnsupportedEncodingException
 	 */
 	public ImageWriter(String imageName, int nX, int nY){
-		try {
-			FOLDER_PATH = java.net.URLDecoder.decode(new File(new File(ClassLoader.getSystemResource(".").getPath()).getParentFile(),"images").getPath(),"UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		this.imageName = imageName;
 		this.nX = nX;
 		this.nY = nY;
