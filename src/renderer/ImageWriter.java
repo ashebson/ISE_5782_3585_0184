@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,7 +23,7 @@ public class ImageWriter {
 	private int nX;
 	private int nY;
 	
-	private final static String FOLDER_PATH = System.getProperty("user.dir") + "/images";
+	private final static String FOLDER_PATH = Paths.get(System.getProperty("user.dir"),"images").toString();
 	private BufferedImage image;
 	private String imageName;
 	
