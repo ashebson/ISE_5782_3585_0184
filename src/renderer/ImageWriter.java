@@ -22,7 +22,7 @@ public class ImageWriter {
 	private int nX;
 	private int nY;
 	
-	private static final String FOLDER_PATH = "C:\\Users\\zviko\\Desktop\\Java Projects\\Malat\\ISE_5782_3585_0184\\images";
+	private static final String FOLDER_PATH = Paths.get("/ISE_5782_3585_0184/images").toAbsolutePath().toString();
 
 	private BufferedImage image;
 	private String imageName;
