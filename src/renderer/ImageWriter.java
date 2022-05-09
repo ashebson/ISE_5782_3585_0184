@@ -5,13 +5,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Paths;
 
 import javax.imageio.*;
 
@@ -33,14 +28,6 @@ public class ImageWriter {
 	
 	private Logger logger = Logger.getLogger("ImageWriter");
 
-	private static String getImagesFolderPath(){
-		try {
-			return java.net.URLDecoder.decode(new File(new File(ClassLoader.getSystemResource(".").getPath()).getParentFile(),"images").getPath(),"UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			throw new RuntimeException("Failed to get path");
-		}
-	}
-
 	// ***************** Constructors ********************** //
 	/**
 	 * Image Writer constructor accepting image name and View Plane parameters,
@@ -50,9 +37,6 @@ public class ImageWriter {
 	 * @throws UnsupportedEncodingException
 	 */
 	public ImageWriter(String imageName, int nX, int nY){
-		System.out.println(FOLDER_PATH);
-		System.out.println(new File(".").getAbsolutePath());
-		System.out.println(System.getProperty("user.dir") );
 		this.imageName = imageName;
 		this.nX = nX;
 		this.nY = nY;
