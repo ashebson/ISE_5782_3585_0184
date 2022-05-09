@@ -21,6 +21,10 @@ public class AmbientLight extends Light{
         super(iA.scale(kA));
     }
 
+    public AmbientLight(Color iA, double kA){
+        super(iA.scale(new Double3(kA)));
+    }
+
     // public AmbientLight(Element element){
     //     intensity = new Color(element.getAttribute("color"));
     // }
