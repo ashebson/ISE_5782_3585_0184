@@ -5,6 +5,7 @@ import static org.junit.Assume.assumeTrue;
 import java.util.List;
 
 import geometries.Intersectable.GeoPoint;
+import lighting.LightSource;
 import primitives.Color;
 import primitives.*;
 import scene.Scene;
@@ -69,7 +70,7 @@ public class RayTracerBasic extends RayTracerBase {
             double nl = n.dotProduct(l);
             double vn = v.dotProduct(n);
             if (nl * vn > 0) {
-                if (true || unshaded(geoPoint, l, n)) {
+                if (unshaded(geoPoint, l, n, light)) {
                     Double3 diff = calcDiffusive(material, nl);
                     Double3 spec = calcSpecular(material, nl, n, l, v);
                     Color Il = light.getIntensity(geoPoint.point).scale(diff.add(spec));
@@ -104,14 +105,20 @@ public class RayTracerBasic extends RayTracerBase {
     /**
      * checks if geopoint is unshaded
      * 
-     * @param gp
+     * @param geopoint
      * @param l
      * @param n
+     * @param lightSource
      * @return if is unshaded
      */
-    public boolean unshaded(GeoPoint geopoint, Vector l, Vector n) {
+    public boolean unshaded(GeoPoint geopoint, Vector l, Vector n, LightSource lightSource) {
         Vector lightDirection = l.scale(-1);
-        Ray lightRay = new Ray(geopoint.point, lightDirection);
-        return scene.geometries.findGeoIntersections(lightRay) == null;
+        double ln = lightDirection.dotProduct(n);
+        if (ln < 0) {
+            n = n.scale(-1);
+        }
+        Point p = geopoint.point.add(n.scale(DELTA));
+        Ray lightRay = new Ray(p, lightDirection);
+        return scene.geometries.findGeoIntersections(lightRay, lightSource.getDistance(geopoint.point)) == null;
     }
 }

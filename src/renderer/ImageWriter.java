@@ -38,7 +38,6 @@ public class ImageWriter {
 	 * @throws UnsupportedEncodingException
 	 */
 	public ImageWriter(String imageName, int nX, int nY){
-		System.out.println(FOLDER_PATH);
 		this.imageName = imageName;
 		this.nX = nX;
 		this.nY = nY;
@@ -73,7 +72,7 @@ public class ImageWriter {
 	 */
 	public void writeToImage() {
 		try {
-			File file = new File(FOLDER_PATH + '/' + imageName + ".png");
+			File file = new File(Paths.get(FOLDER_PATH,imageName + ".png").toString());
 			ImageIO.write(image, "png", file);
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "I/O error", e);

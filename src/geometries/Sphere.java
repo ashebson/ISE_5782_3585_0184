@@ -58,7 +58,7 @@ public class Sphere extends Geometry {
     }
 
     @Override
-    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray){
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance){
         Point p0 = ray.getP0();
         Vector v = ray.getDir();
         Vector u;
@@ -79,28 +79,32 @@ public class Sphere extends Geometry {
         double t2 = tm - th;
         t1 = Util.alignZero(t1);
         t2 = Util.alignZero(t2);
+        List<GeoPoint> intersections = new java.util.ArrayList<>();
         if (t1 > 0 && t2 > 0){
             Point p1 = ray.getPoint(t1);
             Point p2 = ray.getPoint(t2);
             GeoPoint gp1 = new GeoPoint(this, p1);
             GeoPoint gp2 = new GeoPoint(this, p2);
-            return List.of(gp1,gp2);
+            intersections.add(gp1);
+            intersections.add(gp2);
         }else if(t1 > 0 && t2 <= 0){
             Point p1 = new Point(0,0,0);
-            try{
-                p1 = ray.getPoint(t1);
-            }catch (IllegalArgumentException e){
-                System.out.println("t1: " + t1);
-                p1 = ray.getPoint(t1);
-            }
+            p1 = ray.getPoint(t1);
             GeoPoint gp1 = new GeoPoint(this, p1);
-            return List.of(gp1);
+            intersections.add(gp1);
         }else if(t1 <= 0 && t2 > 0){
             Point p2 = ray.getPoint(t2);
             GeoPoint gp2 = new GeoPoint(this, p2);
-            return List.of(gp2);
+            intersections.add(gp2);
         }else{
             return null;
         }
+        for (GeoPoint intersection : intersections){
+            double distance = ray.getP0().Distance(intersection.point);
+            if (Util.alignZero(distance - maxDistance) > 0){
+                intersections.remove(intersection);
+            }
+        }
+        return intersections;
     }
 }

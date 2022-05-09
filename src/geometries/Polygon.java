@@ -92,7 +92,7 @@ public class Polygon extends Geometry {
 	}
 
 	@Override
-    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray){
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance){
         List<Point> planeIntersections = plane.findIntersections(ray);
         if (planeIntersections == null)
             return null;
@@ -124,6 +124,11 @@ public class Polygon extends Geometry {
 			if (vn > 0 != vns.get(0) > 0)
 				return null;
 		}
-        return List.of(new GeoPoint(this, p));
+		GeoPoint intersection = new GeoPoint(this, p);
+		double distance = ray.getP0().Distance(intersection.point);
+		if (Util.alignZero(distance - maxDistance) > 0){
+			return null;
+		}
+        return List.of(intersection);
     }
 }

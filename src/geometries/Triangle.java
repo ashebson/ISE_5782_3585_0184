@@ -30,7 +30,7 @@ public class Triangle extends Polygon {
 
 
     @Override
-    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray){
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance){
         List<Point> planeIntersections = plane.findIntersections(ray);
         if (planeIntersections == null)
             return null;
@@ -49,10 +49,17 @@ public class Triangle extends Polygon {
         double vn1 = n1.dotProduct(v);
         double vn2 = n2.dotProduct(v);
         double vn3 = n3.dotProduct(v);
+        GeoPoint intersection;
         if (Util.isZero(vn1) || Util.isZero(vn2) || Util.isZero(vn3))
             return null;
-        if ((vn1 > 0 == vn2 > 0) && (vn1 > 0 == vn3 > 0))
-            return List.of(new GeoPoint(this,p));
+        if ((vn1 > 0 == vn2 > 0) && (vn1 > 0 == vn3 > 0)){
+            intersection = new GeoPoint(this,p);
+            double distance = ray.getP0().Distance(intersection.point);
+            if (Util.alignZero(distance - maxDistance) > 0){
+                return null;
+            }
+            return List.of(intersection);
+        }
         return null;
     }
 }

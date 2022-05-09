@@ -139,7 +139,7 @@ public class LightsTests {
 	public void sphereSpotSharp() {
 		scene1.geometries.add(sphere);
 		scene1.lights
-				.add(new SpotLight(spCL, spPL, new Vector(1, 1, -0.5)).setKN(6).setKL(0.001).setKQ(0.0001));
+			.add(new SpotLight(spCL, spPL, new Vector(1, 1, -0.5)).setKN(6).setKL(0.001).setKQ(0.0001));
 
 		ImageWriter imageWriter = new ImageWriter("lightSphereSpotSharp", 500, 500);
 		camera1.setImageWriter(imageWriter) //
@@ -163,4 +163,39 @@ public class LightsTests {
 				.writeToImage(); //
 	}
 
+	@Test 
+	void sphereMultiLightsTest(){
+		scene1.geometries.add(sphere);
+		Point p1 = new Point(-50, -50, 25); 
+		Point p2 = new Point(-50, -40, 25); 
+		Point p3 = new Point(-50, -50, 35); 
+		scene1.lights.add(new PointLight(spCL, p1).setKL(0.001).setKQ(0.0002));
+		scene1.lights.add(new SpotLight(spCL, p2, new Vector(1, 1, -0.5)).setKN(6).setKL(0.001).setKQ(0.0001));
+		scene1.lights.add(new DirectionalLight(spCL, new Vector(-1, -1, 0.5)));
+		scene1.lights.add(new SpotLight(spCL, p3, new Vector(1, 1, -0.5)).setKL(0.001).setKQ(0.0001));
+
+		ImageWriter imageWriter = new ImageWriter("lightSphereMulti", 500, 500);
+		camera1.setImageWriter(imageWriter) //
+				.setRayTracer(new RayTracerBasic(scene1)) //
+				.renderImage() //
+				.writeToImage(); //
+	}
+
+	@Test 
+	void triangleMultiLightsTest(){
+		Point p1 = new Point(30, 10, -100);
+		Point p2 = new Point(20, 10, -100);
+		Point p3 = new Point(30, 10, -90);
+		scene2.geometries.add(triangle1, triangle2);
+		scene2.lights.add(new SpotLight(trCL, p1, trDL).setKL(0.001).setKQ(0.0001));
+		scene2.lights.add(new SpotLight(trCL, p2, trDL).setKN(7).setKL(0.001).setKQ(0.00004));
+		scene2.lights.add(new PointLight(trCL, p3).setKL(0.001).setKQ(0.0002));
+		scene2.lights.add(new DirectionalLight(trCL, trDL));
+
+		ImageWriter imageWriter = new ImageWriter("lightTrianglesMulti", 500, 500);
+		camera2.setImageWriter(imageWriter) //
+				.setRayTracer(new RayTracerBasic(scene2)) //
+				.renderImage() //
+				.writeToImage(); //
+	}
 }

@@ -47,4 +47,10 @@ public class PointLight extends Light implements LightSource{
         this.kQ = kQ;
         return this;
     }
+
+
+    @Override
+    public double getDistance(Point p) {
+        return position.Distance(p);
+    }
 }
