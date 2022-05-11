@@ -1,5 +1,7 @@
 package geometries;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import primitives.*;
@@ -50,9 +52,23 @@ public class Cylinder extends Tube {
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double max) {
+        /**
+         * we find the projection and calcs its size and if it is like the height the point inside the cylinder (we can use dot product cause the axsis in normalized )
+         * 
+         */
+        
+        List<GeoPoint> res = new ArrayList<>();
+        List<GeoPoint> lst = super.findGeoIntersectionsHelper(ray,max);
+        if (lst != null)
+            for (GeoPoint geoPoint : lst) {
+                double distance = Util.alignZero(geoPoint.point.subtract(axisRay.getP0()).dotProduct(axisRay.getDir()));
+                if (distance > 0 && distance <= height)
+                    res.add(geoPoint);
+            }
 
+        if (res.size() == 0)
+            return null;
+        return res;
+    }
 }

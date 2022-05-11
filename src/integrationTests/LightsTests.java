@@ -198,4 +198,5 @@ public class LightsTests {
 				.renderImage() //
 				.writeToImage(); //
 	}
+
 }

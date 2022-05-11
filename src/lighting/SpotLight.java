@@ -22,6 +22,6 @@ public class SpotLight extends PointLight {
         Vector l = this.getL(p);
         if (kN == 1)
             return I0.scale(Math.max(0,direction.dotProduct(l)));
-        return I0.scale(Math.max(0, Math.pow(direction.dotProduct(l),kN)));
+        return I0.scale(Math.pow(Math.max(0, direction.dotProduct(l)),kN));
     }
 }
