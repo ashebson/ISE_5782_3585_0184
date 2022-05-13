@@ -10,6 +10,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import geometries.*;
+import geometries.Intersectable.GeoPoint;
 import primitives.*;
 
 /**
@@ -115,4 +116,22 @@ public class PolygonTests {
 		result = p.findIntersections(r);
 		assertNull(result, "Wrong intersections");
 	}
+
+    @Test
+    void testFindGeoIntersections() {
+        Polygon p = new Polygon(new Point(-1,7,4),new Point(0,9,1),new Point(7,2,1), new Point(1,1,8));
+		Ray r = new Ray(new Point(0,-2,0), new Vector(1,1,1));
+		double distance = 6.928203230275509;
+		// ============ Equivalence Partitions Tests ==============
+		// TC01: Ray intersects polygon, within distance (1 point)
+		List<GeoPoint> result = p.findGeoIntersections(r,distance*1.1);
+		assertEquals(result.size(), 1, "Wrong number of intersections");
+		// TC02: Ray intersects polygon, out of distance (0 point)
+		result = p.findGeoIntersections(r,distance*0.9);
+		assertEquals(result, null, "Wrong number of intersections");
+		// =================== Boundary Values Tests ===============
+		// TC11: Ray intersects polygon, on exact distance (1 point)
+		result = p.findGeoIntersections(r,distance);
+		assertEquals(result.size(), 1, "Wrong number of intersections");
+    }
 }

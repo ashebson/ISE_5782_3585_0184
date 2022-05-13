@@ -7,6 +7,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import geometries.*;
+import geometries.Intersectable.GeoPoint;
 import primitives.*;
 
 /**
@@ -63,5 +64,26 @@ public class TriangleTests {
         r = new Ray(new Point(-1,-1,0), new Vector(0,2,3));
         result = t.findIntersections(r);
         assertNull(result, "Wrong intersections");
+    }
+
+    /**
+     * Test method for {@link geometries.Triangle#findGeoIntersections()}.
+    */
+    @Test
+    void testFindGeoIntersections(){
+        Triangle t = new Triangle(new Point(2,0,0), new Point(0,3,0), new Point(0,0,1));
+        Ray r = new Ray(new Point(1,0,0), new Vector(1,1,1));
+        double distance = 0.47237749297333015;
+        // ============ Equivalence Partitions Tests ==============
+        // TC01: Ray intersects triangle, within distance (1 point)
+        List<GeoPoint> result = t.findGeoIntersections(r,distance*1.1);
+        assertEquals(result.size(), 1, "Wrong intersections");
+        // TC02: Ray intersects triangle, out of distance (0 point)
+        result = t.findGeoIntersections(r,distance*0.9);
+        assertEquals(result, null, "Wrong intersections");
+        // ================== Boundary Values Tests =================
+        // TC11: Ray intersects triangle on the distance (1 point)
+        result = t.findGeoIntersections(r,distance);
+        assertEquals(result.size(), 1, "Wrong intersections");
     }
 }

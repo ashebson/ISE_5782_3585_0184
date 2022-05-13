@@ -7,6 +7,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import geometries.*;
+import geometries.Intersectable.GeoPoint;
 import primitives.*;
 
 /**
@@ -115,5 +116,31 @@ public class SphereTests {
         // TC19: Ray's line is outside, ray is orthogonal to ray start to sphere's center line (0 points)
         result = sphere.findIntersections(new Ray(new Point(3,0,0), new Vector(0,1,0)));
         assertEquals(result, null, "Wrong number of points");
+    }
+
+    @Test
+    public void testFindGeoIntersections() {
+        Sphere sphere = new Sphere(new Point (1, 0, 0),1d);
+        Ray ray = new Ray(new Point(-1, 0, 0),new Vector(3, 1, 0));
+        List<GeoPoint> result = sphere.findGeoIntersections(ray);
+        double distance1 = 2.6719632653425105;
+        double distance2 = 1.1227699268595444;
+        // =========================== Equivalence Partitions ==========================
+        // TC01: Ray intersectes the sphere twice, both within distance (2 points)
+        result = sphere.findGeoIntersections(ray, distance1*1.1);
+        assertEquals(result.size(), 2, "Wrong number of points");
+        // TC02: Ray intersectes the sphere twice, with one in distance (1 points)
+        result = sphere.findGeoIntersections(ray, (distance1+distance2)/2);
+        assertEquals(result.size(), 1, "Wrong number of points");
+        // TC03: Ray intersectes the sphere twice, both out of distance (0 points)
+        result = sphere.findGeoIntersections(ray, distance2*0.9);
+        assertEquals(result, null, "Wrong number of points");
+        // =========================== Boundary Values Tests ==========================
+        // TC11: Ray intersectes the sphere twice, one within distance and one on exact distance (2 points)
+        result = sphere.findGeoIntersections(ray, distance1);
+        assertEquals(result.size(), 2, "Wrong number of points");
+        // TC12: Ray intersectes the sphere twice, one out of distance and one on exact distance (1 points)
+        result = sphere.findGeoIntersections(ray, distance2);
+        assertEquals(result.size(), 1, "Wrong number of points");
     }
 }
