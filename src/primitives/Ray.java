@@ -13,7 +13,7 @@ import geometries.Intersectable.GeoPoint;
 public class Ray {
     private Point p0;
     private Vector dir;
-
+    private static final double DELTA = 0.1;
     /**
      * constructor based on a point and a vector
      * @param p0
@@ -24,6 +24,15 @@ public class Ray {
         dir = dir.normalize();
         this.p0 = p0;
         this.dir = dir;
+    }
+
+    public Ray(Point p0, Vector direction, Vector normal){
+        double ln = direction.dotProduct(normal);
+        if (ln < 0) {
+            normal = normal.scale(-1);
+        }
+        this.p0 = p0.add(normal.scale(DELTA));
+        this.dir = direction;
     }
 
     @Override

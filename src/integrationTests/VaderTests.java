@@ -4888,7 +4888,7 @@ public class VaderTests {
         Vector delta = new Vector(-2.0/60,0,0);
         ImageWriter imageWriter;
         for (int i = 0; i < 60; i++){
-            scene = new Scene("Test scene");
+            scene = new Scene("Test scene").setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.15)));
             scene.geometries.add(triangles1);
             scene.geometries.add(triangles2);
             scene.geometries.add(triangles3);
@@ -4898,7 +4898,7 @@ public class VaderTests {
             }catch (IllegalArgumentException e){
                 scene.lights.add(new DirectionalLight(trCL, trDL));
             }
-            imageWriter = new ImageWriter("vaderVideoTestFrame"+i, 100, 100);
+            imageWriter = new ImageWriter("vaderVideo/vaderVideoTestFrame"+i, 1000, 1000);
             camera.setImageWriter(imageWriter) //
                     .setRayTracer(new RayTracerBasic(scene)) //
                     .renderImage() //
@@ -4906,7 +4906,7 @@ public class VaderTests {
         }
     }
 
-    //@Test
+    @Test
     void vaderTest(){
         Intersectable[] triangles1 = getTriangles0();
         Intersectable[] triangles2 = getTriangles1();

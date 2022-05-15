@@ -2,6 +2,7 @@ package unittests.geometries;
 
 import primitives.*;
 import geometries.*;
+import geometries.Intersectable.GeoPoint;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -92,7 +93,25 @@ public class PlaneTests {
         r = new Ray(new Point(0,1,0), new Vector(2,1,1));
         result = pl.findIntersections(r);
         assertEquals(result, null, "Wrong number of points");
-        
+    }
 
+    @Test
+    void testFindGeoIntersections() {
+        // ==================== Equivalence Partitions Tests ======================
+        Point p = new Point(0,1,0);
+        Vector v = new Vector(1,1,1);
+        Plane pl = new Plane(p, v);
+        Ray r = new Ray(new Point(3,0,0), new Vector(-1,-5,-1));
+        double distance = 1.484615;
+        // TC01: Ray intersectes the plane, within distance (1 points)
+        List<GeoPoint> result = pl.findGeoIntersections(r,distance*1.1);
+        assertEquals(result.size(), 1, "Wrong number of points");
+        // TC02: Ray intersectes the plane, outside distance (0 points)
+        result = pl.findGeoIntersections(r,distance*0.9);
+        assertEquals(result, null, "Wrong number of points");
+        // ==================== Boundary Values Tests ======================
+        // TC11: Ray intersects the plane, with exact distance (1 points)
+        result = pl.findGeoIntersections(r,distance);
+        assertEquals(result.size(), 1, "Wrong number of points");
     }
 }

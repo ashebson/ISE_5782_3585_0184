@@ -1,5 +1,6 @@
 package geometries;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import primitives.*;
@@ -99,12 +100,16 @@ public class Sphere extends Geometry {
         }else{
             return null;
         }
+        List<GeoPoint> finalIntersections = new ArrayList<>();
         for (GeoPoint intersection : intersections){
             double distance = ray.getP0().Distance(intersection.point);
             if (Util.alignZero(distance - maxDistance) > 0){
-                intersections.remove(intersection);
+                continue;
             }
+            finalIntersections.add(intersection);
         }
-        return intersections;
+        if (finalIntersections.isEmpty())
+            return null;
+        return finalIntersections;
     }
 }
