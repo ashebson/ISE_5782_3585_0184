@@ -4879,7 +4879,7 @@ public class VaderTests {
         return triangles;
     }
 
-    @Test
+  // @Test
     void vaderVideoTestFrame() {
         Intersectable[] triangles1 = getTriangles0();
         Intersectable[] triangles2 = getTriangles1();
