@@ -103,7 +103,11 @@ public class Sphere extends Geometry {
         List<GeoPoint> finalIntersections = new ArrayList<>();
         for (GeoPoint intersection : intersections){
             double distance = ray.getP0().Distance(intersection.point);
-            if (Util.alignZero(distance - maxDistance) > 0){
+            if (maxDistance == Double.POSITIVE_INFINITY){
+                finalIntersections.add(intersection);
+                continue;
+            }
+            else if (Util.alignZero(distance - maxDistance) > 0){
                 continue;
             }
             finalIntersections.add(intersection);
