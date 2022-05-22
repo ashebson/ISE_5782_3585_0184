@@ -4906,7 +4906,7 @@ public class VaderTests {
         }
     }
 
-    @Test
+   // @Test
     void vaderTest(){
         Intersectable[] triangles1 = getTriangles0();
         Intersectable[] triangles2 = getTriangles1();

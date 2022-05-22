@@ -42,7 +42,7 @@ public class VideoTests {
     private Geometry cylinder = new Cylinder(new Ray(new Point(0, 0, -50), new Vector(1, 1, 1)), 50d, 60d)
             .setEmission(new Color(BLUE).reduce(2)) //
 			.setMaterial(new Material().setKD(0.5).setKS(0.5).setNShininess(300));
-    //@Test
+    @Test
 	public void sphereDirectional() {
         Color colorDelta = new Color(BLACK);
         Vector vectorDelta = new Vector(-(2.0/60), -(2.0/60), 0);
@@ -58,7 +58,7 @@ public class VideoTests {
             }
             scene1.lights.add(new DirectionalLight(spCL.add(colorDelta), new Vector(1, 1, -0.5).add(propotionalVectorDelta)));
             
-            ImageWriter imageWriter = new ImageWriter("sphereVideo/videoFrameSphereDirectional"+i, 500, 500);
+            ImageWriter imageWriter = new ImageWriter("sphereVideo\\videoFrameSphereDirectional"+i, 500, 500);
 		    camera1.setImageWriter(imageWriter) //
 				.setRayTracer(new RayTracerBasic(scene1)) //
 				.renderImage() //
