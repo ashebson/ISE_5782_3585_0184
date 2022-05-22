@@ -1,12 +1,13 @@
 package lighting;
 
+import java.util.List;
+
 import geometries.Geometry;
 import primitives.*;
 
 public class PointLight extends Light implements LightSource{
     private Point position;
     private double kC, kL, kQ;
-    protected Geometry shape;
 
     /**
      * Constructor
@@ -54,5 +55,11 @@ public class PointLight extends Light implements LightSource{
     @Override
     public double getDistance(Point p) {
         return position.Distance(p);
+    }
+
+
+    @Override
+    public List<Vector> getLs(Point p, int maxAmountOfShadowRays) {
+        return List.of(getL(p));
     }
 }

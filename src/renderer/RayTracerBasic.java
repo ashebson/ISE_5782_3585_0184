@@ -14,6 +14,7 @@ public class RayTracerBasic extends RayTracerBase {
     private static final int MAX_CALC_COLOR_LEVEL = 10;
     private static final Double3 INITIAL_K = Double3.ONE;
     private static final double MIN_CALC_COLOR_K = 0.0001;
+    private static final int MAX_NUMBER_OF_SHADOW_RAYS = 1000;
 
     /**
      * Constructor
@@ -64,25 +65,29 @@ public class RayTracerBasic extends RayTracerBase {
      */
     private Color calcLocalEffects(GeoPoint geoPoint, Ray ray, Double3 k) {
         Color Ie = geoPoint.geometry.getEmission();
-        Color Ils = Color.BLACK;
+        Color Ilights = Color.BLACK;
         Material material = geoPoint.geometry.getMaterial();
         Vector n = geoPoint.geometry.getNormal(geoPoint.point);
-        Vector v = ray.getDir();
-        for (var light : scene.lights) {
-            Vector l = light.getL(geoPoint.point);
-            double nl = Util.alignZero(n.dotProduct(l));
-            double vn = Util.alignZero(v.dotProduct(n));
-            if (nl * vn > 0) {
-                Double3 ktr = transparency(geoPoint, l, n, light);
-                if (!(ktr.product(k).lowerThan(MIN_CALC_COLOR_K))) {
-                    Double3 diff = calcDiffusive(material, nl);
-                    Double3 spec = calcSpecular(material, nl, n, l, v);
-                    Color Il = light.getIntensity(geoPoint.point).scale(diff.add(spec));
-                    Ils = Ils.add(Il.scale(ktr));
+        Vector v = ray.getDir();        
+        for (LightSource light : scene.lights) {
+            List<Vector> ls = light.getLs(geoPoint.point, MAX_NUMBER_OF_SHADOW_RAYS);
+            Color Ils = Color.BLACK;
+            for(Vector l : ls){
+                double nl = Util.alignZero(n.dotProduct(l));
+                double vn = Util.alignZero(v.dotProduct(n));
+                if (nl * vn > 0) {
+                    Double3 ktr = transparency(geoPoint, l, n, light);
+                    if (!(ktr.product(k).lowerThan(MIN_CALC_COLOR_K))) {
+                        Double3 diff = calcDiffusive(material, nl);
+                        Double3 spec = calcSpecular(material, nl, n, l, v);
+                        Color Il = light.getIntensity(geoPoint.point).scale(diff.add(spec));
+                        Ils = Ils.add(Il.scale(ktr));
+                    }
                 }
             }
+            Ilights = Ilights.add(Ils.scale(1.0/ls.size()));
         }
-        return Ie.add(Ils);
+        return Ie.add(Ilights);
     }
 
     /**

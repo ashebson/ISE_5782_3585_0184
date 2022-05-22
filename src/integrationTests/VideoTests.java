@@ -16,7 +16,7 @@ import javax.swing.event.CaretEvent;
 
 public class VideoTests {
     
-    @Test
+    //@Test
 	public void sphereDirectionalVideo() {
 		Scene scene = new Scene("Test scene");
 		Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
@@ -26,14 +26,6 @@ public class VideoTests {
 		Geometry sphere = new Sphere(new Point(0, 0, -50), 50d) //
 			.setEmission(new Color(BLUE).reduce(2)) //
 			.setMaterial(new Material().setKD(0.5).setKS(0.5).setNShininess(300));
-<<<<<<< HEAD
-    private Geometry cylinder = new Cylinder(new Ray(new Point(0, 0, -50), new Vector(1, 1, 1)), 50d, 60d)
-            .setEmission(new Color(BLUE).reduce(2)) //
-			.setMaterial(new Material().setKD(0.5).setKS(0.5).setNShininess(300));
-    @Test
-	public void sphereDirectional() {
-=======
->>>>>>> a4eab67f7ccadc3dcf6d1737acf2282ef7dafab5
         Color colorDelta = new Color(BLACK);
         Vector vectorDelta = new Vector(-(2.0/60), -(2.0/60), 0);
         Intersectable[] geos = {sphere};
@@ -49,21 +41,15 @@ public class VideoTests {
             }
             scene.lights.add(new DirectionalLight(spCL.add(colorDelta), new Vector(1, 1, -0.5).add(propotionalVectorDelta)));
             
-<<<<<<< HEAD
-            ImageWriter imageWriter = new ImageWriter("sphereVideo\\videoFrameSphereDirectional"+i, 500, 500);
-		    camera1.setImageWriter(imageWriter) //
-				.setRayTracer(new RayTracerBasic(scene1)) //
-=======
             ImageWriter imageWriter = new ImageWriter("sphereVideo/videoFrameSphereDirectional"+i, 500, 500);
 		    camera.setImageWriter(imageWriter) //
 				.setRayTracer(new RayTracerBasic(scene)) //
->>>>>>> a4eab67f7ccadc3dcf6d1737acf2282ef7dafab5
 				.renderImage() //
 				.writeToImage(); //
         }
 	}
 
-	@Test
+	//@Test
 	public void superMegaAwesomeVideoTest(){
 		Camera camera = new Camera(new Point(-100, -100, 0), new Vector(1, 1, 0), new Vector(0, 0, 1)) //
                 .setWidthAndHeight(150, 150) //

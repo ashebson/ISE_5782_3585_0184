@@ -1,5 +1,7 @@
 package lighting;
 
+import java.util.List;
+
 import primitives.*;
 
 public interface LightSource {
@@ -16,6 +18,12 @@ public interface LightSource {
      * @return L
     */
     public Vector getL(Point p);
+
+    /**
+     * builds vectors from light to point
+     * @return position
+     */
+    public List<Vector> getLs(Point p, int maxAmountOfShadowRays);
 
     /**
      * calculates distance to given point

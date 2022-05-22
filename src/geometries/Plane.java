@@ -48,7 +48,7 @@ public class Plane extends Geometry {
      *
      * @return normal
      */
-    Vector getNormal(){
+    Vector getNormal() {
         return getNormal(q0);
     }
 
@@ -57,7 +57,7 @@ public class Plane extends Geometry {
         Point p0 = ray.getP0();
         Vector v = ray.getDir();
         double devider = normal.dotProduct(v);
-        if (Util.isZero(devider) || p0.equals(q0)){
+        if (Util.isZero(devider) || p0.equals(q0)) {
             return null;
         }
         double t = normal.dotProduct(q0.subtract(p0)) / devider;
@@ -66,12 +66,33 @@ public class Plane extends Geometry {
             return null;
         GeoPoint intersection = new GeoPoint(this, ray.getPoint(t));
         double distance = ray.getP0().Distance(intersection.point);
-        if (maxDistance == Double.POSITIVE_INFINITY){
+        if (maxDistance == Double.POSITIVE_INFINITY) {
             return List.of(intersection);
         }
-        if (Util.alignZero(distance - maxDistance) > 0){
+        if (Util.alignZero(distance - maxDistance) > 0) {
             return null;
         }
         return List.of(intersection);
+    }
+
+    /**
+     * retruns two normalized orthogonal vectors in the plane
+     * 
+     * @return
+     */
+    public List<Vector> getTwoNormalizedOrthogonalVectors() {
+        Vector v1;
+        try {
+            v1 = normal.crossProduct(new Vector(1, 0, 0));
+        } catch (IllegalArgumentException e) {
+            try {
+            v1 = normal.crossProduct(new Vector(0, 1, 0));
+            }
+            catch (IllegalArgumentException e1) {
+                v1 = normal.crossProduct(new Vector(0, 0, 1));
+            }
+        }
+        Vector v2 = normal.crossProduct(v1);
+        return List.of(v1.normalize(), v2.normalize());
     }
 }
