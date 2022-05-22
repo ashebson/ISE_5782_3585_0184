@@ -208,4 +208,43 @@ public class Camera {
             throw new MissingResourceException("imageWriter must be initialized", "Camera", "imageWriter");
         imageWriter.writeToImage();
     }
+
+    /**
+     * turns the camera by a given angle
+     */
+    public Camera pivot(double angle){
+        angle = Math.toRadians(angle);
+        vUp = vUp.turn(angle, vRight);
+        vRight = vRight.turn(angle, vUp.scale(-1));
+        return this;
+    }
+
+    public Camera turnRight(double angle){
+        angle = Math.toRadians(angle);
+        vTo = vTo.turn(angle, vRight);
+        vRight = vRight.turn(angle, vUp.scale(-1));
+        return this;
+    }
+
+    public Camera turnUp(double angle){
+        angle = Math.toRadians(angle);
+        vTo = vTo.turn(angle, vUp);
+        vUp = vUp.turn(angle, vTo.scale(-1));
+        return this;
+    }
+
+    public Camera moveUp(double distance){
+        p0 = p0.add(vUp.scale(distance));
+        return this;
+    }
+
+    public Camera moveTo(double distance){
+        p0 = p0.add(vTo.scale(distance));
+        return this;
+    }
+
+    public Camera moveRight(double distance){
+        p0 = p0.add(vRight.scale(distance));
+        return this;
+    }
 }

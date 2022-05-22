@@ -12,7 +12,7 @@ import static java.awt.Color.*;
 public class VaderTests {
     private Scene scene = new Scene("Test scene") //
             .setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.15)));
-    private Camera camera = new Camera(new Point(0, -300, 25), new Vector(0, 1, 0), new Vector(0, 0, 1)) //
+    private Camera camera = new Camera(new Point(0, -600, 25), new Vector(0, 1, 0), new Vector(0, 0, 1)) //
             .setWidthAndHeight(200, 200) //
             .setDistance(1000);
 
@@ -21,9 +21,9 @@ public class VaderTests {
             new Point(95, 100, -150), // the shared right-top
             new Point(110, -110, -150), // the right-bottom
             new Point(-75, 78, 100) }; // the left-top
-    private Color trCL = new Color(800, 0, 0); // Triangles test Color of Light
+    private Color trCL = new Color(256, 256, 256); // Triangles test Color of Light
     private Vector trDL = new Vector(1, 1, 1); // Triangles test Direction of Light
-    private Material material = new Material().setKD(0.5).setKS(0.5).setNShininess(300);
+    private Material material = new Material().setKD(0.8).setKS(0.8).setNShininess(300);
 
     private Geometry[] getTriangles0() {
         Geometry[] triangles = {
@@ -4879,7 +4879,7 @@ public class VaderTests {
         return triangles;
     }
 
-  // @Test
+    //@Test
     void vaderVideoTestFrame() {
         Intersectable[] triangles1 = getTriangles0();
         Intersectable[] triangles2 = getTriangles1();
@@ -4908,16 +4908,44 @@ public class VaderTests {
 
    // @Test
     void vaderTest(){
+        camera.moveUp(60);
+        camera.turnUp(-8);
         Intersectable[] triangles1 = getTriangles0();
         Intersectable[] triangles2 = getTriangles1();
         Intersectable[] triangles3 = getTriangles2();
         Intersectable[] triangles4 = getTriangles3();
+        Geometry plane = new Plane(new Point(0,0,0), new Vector(0,0,1))
+                .setEmission(new Color(java.awt.Color.BLUE).reduce(4))
+                .setMaterial(
+                        new Material()
+                        .setKD(0.5)
+                        .setKS(0.5)
+                        .setNShininess(60)
+                );
+        scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.15));
         scene.geometries.add(triangles1);
         scene.geometries.add(triangles2);
         scene.geometries.add(triangles3);
         scene.geometries.add(triangles4);
-        scene.lights.add(new DirectionalLight(trCL, trDL));
-        ImageWriter imageWriter = new ImageWriter("vaderTest", 1000, 1000);
+        scene.geometries.add(plane);
+        scene.lights.add(new DirectionalLight(new Color(100,100,100), new Vector(0,1,0)));
+        Point lightPoint = new Point(40,-40,100);
+        scene.lights.add(new PointLight(trCL, lightPoint));
+        Geometry sphere = new Sphere(lightPoint,10)
+                .setMaterial(
+                        new Material()
+                        .setKT(0.8)
+                        .setKD(0.2)
+                        .setKS(0.2)
+                        .setNShininess(30)
+                );
+        scene.geometries.add(sphere);
+        // Geometry helpSphere = new Sphere(new Point(0,0,0),30)
+        //        .setEmission(new Color(java.awt.Color.RED));
+        // scene.geometries.add(helpSphere);
+        
+        int QUALITY = 1000;
+        ImageWriter imageWriter = new ImageWriter("vaderTest", QUALITY, QUALITY);
             camera.setImageWriter(imageWriter) //
                     .setRayTracer(new RayTracerBasic(scene)) //
                     .renderImage() //

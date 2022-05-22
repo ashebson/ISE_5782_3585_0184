@@ -55,6 +55,9 @@ public class Triangle extends Polygon {
         if ((vn1 > 0 == vn2 > 0) && (vn1 > 0 == vn3 > 0)){
             intersection = new GeoPoint(this,p);
             double distance = ray.getP0().Distance(intersection.point);
+            if (maxDistance == Double.POSITIVE_INFINITY){
+                return List.of(intersection);
+            }
             if (Util.alignZero(distance - maxDistance) > 0){
                 return null;
             }

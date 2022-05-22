@@ -1,10 +1,12 @@
 package lighting;
 
+import geometries.Geometry;
 import primitives.*;
 
 public class PointLight extends Light implements LightSource{
     private Point position;
     private double kC, kL, kQ;
+    protected Geometry shape;
 
     /**
      * Constructor

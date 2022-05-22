@@ -64,6 +64,15 @@ public class Vector extends Point {
     }
 
     /**
+     * returns this with different length
+     * @param s
+     * @return new vector
+     */
+    public Vector changeLength(double s){
+        return this.normalize().scale(s);
+    }
+
+    /**
      * dot product of this vector and v
      * 
      * @return dot product of this vector and v
@@ -131,5 +140,17 @@ public class Vector extends Point {
             return false;
         Vector other = (Vector) obj;
         return xyz.equals(other.xyz);
+    }
+
+    public Vector turn(double angle, Vector ortho){
+        ortho = ortho.changeLength(this.length());
+        double ortho_scaler = Math.sin(angle);
+        double this_scaler = Math.cos(angle);
+        if (Util.isZero(ortho_scaler)){
+            return this.scale(this_scaler).changeLength(this.length());
+        }else if(Util.isZero(this_scaler)){
+            return ortho.scale(ortho_scaler).changeLength(this.length());
+        }
+        return ortho.scale(Math.sin(angle)).add(this.scale(Math.cos(angle))).changeLength(this.length());
     }
 }
