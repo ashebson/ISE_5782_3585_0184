@@ -126,6 +126,9 @@ public class Polygon extends Geometry {
 		}
 		GeoPoint intersection = new GeoPoint(this, p);
 		double distance = ray.getP0().Distance(intersection.point);
+		if (maxDistance == Double.POSITIVE_INFINITY){
+			return List.of(intersection);
+		}
 		if (Util.alignZero(distance - maxDistance) > 0){
 			return null;
 		}
