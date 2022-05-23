@@ -85,12 +85,7 @@ public class Plane extends Geometry {
         try {
             v1 = normal.crossProduct(new Vector(1, 0, 0));
         } catch (IllegalArgumentException e) {
-            try {
             v1 = normal.crossProduct(new Vector(0, 1, 0));
-            }
-            catch (IllegalArgumentException e1) {
-                v1 = normal.crossProduct(new Vector(0, 0, 1));
-            }
         }
         Vector v2 = normal.crossProduct(v1);
         return List.of(v1.normalize(), v2.normalize());
