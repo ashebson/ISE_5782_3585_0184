@@ -14,7 +14,7 @@ public class RayTracerBasic extends RayTracerBase {
     private static final int MAX_CALC_COLOR_LEVEL = 10;
     private static final Double3 INITIAL_K = Double3.ONE;
     private static final double MIN_CALC_COLOR_K = 0.0001;
-    private static final int MAX_NUMBER_OF_SHADOW_RAYS = 100;
+    private static final int MAX_NUMBER_OF_SHADOW_RAYS = 1000;
 
     /**
      * Constructor
