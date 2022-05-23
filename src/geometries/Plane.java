@@ -80,7 +80,7 @@ public class Plane extends Geometry {
      * 
      * @return
      */
-    public List<Vector> getTwoNormalizedOrthogonalVectors() {
+    public List<Vector> getBaseVectors() {
         Vector v1;
         try {
             v1 = normal.crossProduct(new Vector(1, 0, 0));
