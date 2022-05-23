@@ -116,4 +116,13 @@ public class Sphere extends Geometry {
             return null;
         return finalIntersections;
     }
+
+    /**
+     * checks if point is in sphere
+     * @param p
+     * @return
+     */
+    public Boolean isIn(Point p){
+        return center.DistanceSquared(p) <= radius*radius;
+    }
 }

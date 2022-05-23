@@ -47,12 +47,11 @@ public class SoftShadowsTests {
 				new Triangle(new Point(-150, -150, -115), new Point(-70, 70, -140), new Point(75, 75, -150)) //
 						.setMaterial(new Material().setKD(0.5).setKS(0.5).setNShininess(60)), //
 				new Sphere(new Point(60, 50, -50), 30d).setEmission(new Color(BLUE)) //
-						.setMaterial(new Material().setKD(0.2).setKS(0.2).setNShininess(30).setKT(0.6)));
-
-		scene.lights.add(new LightBulb(new Color(200, 200, 200), new Point(60, 50, 0),20) //
+						.setMaterial(new Material().setKD(0.2).setKS(0.2).setNShininess(30).setKT(0.4)));
+		scene.lights.add(new LightBulb(new Color(700, 400, 400), new Point(60, 50, -50), 20d) //
 				.setKL(4E-5).setKQ(2E-7));
 
-		ImageWriter imageWriter = new ImageWriter("softSadowrefractionShadow", 600, 600);
+		ImageWriter imageWriter = new ImageWriter("softShadowRefraction", 600, 600);
 		camera.setImageWriter(imageWriter) //
 				.setRayTracer(new RayTracerBasic(scene)) //
 				.renderImage() //

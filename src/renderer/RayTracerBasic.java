@@ -14,7 +14,7 @@ public class RayTracerBasic extends RayTracerBase {
     private static final int MAX_CALC_COLOR_LEVEL = 10;
     private static final Double3 INITIAL_K = Double3.ONE;
     private static final double MIN_CALC_COLOR_K = 0.0001;
-    private static final int MAX_NUMBER_OF_SHADOW_RAYS = 300;
+    private static final int MAX_NUMBER_OF_SHADOW_RAYS = 100;
 
     /**
      * Constructor
@@ -85,7 +85,9 @@ public class RayTracerBasic extends RayTracerBase {
                     }
                 }
             }
-            Ilights = Ilights.add(Ils.scale(1.0/ls.size()));
+
+            Ils = Ils.reduce(ls.size());
+            Ilights = Ilights.add(Ils);
         }
         return Ie.add(Ilights);
     }
