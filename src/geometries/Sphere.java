@@ -3,6 +3,9 @@ package geometries;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.w3c.dom.Element;
+
+import parser.Parser;
 import primitives.*;
 /**
  * Sphere class
@@ -34,14 +37,16 @@ public class Sphere extends Geometry {
         generateBox();
     }
 
-    // /**
-    //  * Constructor
-    //  * @param element
-    //  */
-    // public Sphere (Element element){
-    //     center = new Point(element.getAttribute("center"));
-    //     radius = Double.parseDouble(element.getAttribute("radius"));
-    // }
+    /**
+     * Constructor
+     * @param element
+     */
+    public Sphere (Element element){
+        this(
+            new Point(Parser.parseDouble3(element.getAttribute("center"))),
+            Double.parseDouble(element.getAttribute("radius"))
+        );
+    }
 
     /**
      * getter for the center point

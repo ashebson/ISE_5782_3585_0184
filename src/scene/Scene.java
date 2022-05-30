@@ -2,6 +2,7 @@ package scene;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,6 +18,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import geometries.*;
 import primitives.*;
 import lighting.*;
+import parser.Parser;
 
 public class Scene {
     public String name;
@@ -39,20 +41,22 @@ public class Scene {
      * @throws ParserConfigurationException
      * @throws SAXException
      * @throws IOException
+     * @throws InvocationTargetException
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     * @throws SecurityException
+     * @throws NoSuchMethodException
+     * @throws ClassNotFoundException
      */
-    // public Scene(String name, File file) throws ParserConfigurationException, SAXException, IOException{
-    //     this.name = name;
-    //     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-    //     DocumentBuilder builder = factory.newDocumentBuilder();
-    //     Document doc = builder.parse(file);
-    //     doc.getDocumentElement().normalize();
-    //     Element rootElement = doc.getDocumentElement();
-    //     Element ambientLightElement = (Element) rootElement.getElementsByTagName("ambient-light").item(0);
-    //     Element geometriesElement = (Element) rootElement.getElementsByTagName("geometries").item(0);
-    //     background = new Color(rootElement.getAttribute("background-color"));
-    //     ambientLight = new AmbientLight(ambientLightElement);
-    //     geometries = new Geometries(geometriesElement);
-    // }
+    public Scene(Element element) throws ParserConfigurationException, SAXException, IOException, ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{;
+        Element ambientLightElement = (Element) element.getElementsByTagName("ambient-light").item(0);
+        Element geometriesElement = (Element) element.getElementsByTagName("geometries").item(0);
+        name = element.getAttribute("name");
+        background = new Color(Parser.parseDouble3(element.getAttribute("background-color")));
+        ambientLight = new AmbientLight(ambientLightElement);
+        geometries = new Geometries(geometriesElement);
+    }
 
     /**
      * setter for background
