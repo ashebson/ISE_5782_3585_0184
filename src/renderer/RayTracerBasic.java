@@ -14,7 +14,11 @@ public class RayTracerBasic extends RayTracerBase {
     private static final int MAX_CALC_COLOR_LEVEL = 10;
     private static final Double3 INITIAL_K = Double3.ONE;
     private static final double MIN_CALC_COLOR_K = 0.0001;
+<<<<<<< HEAD
     private static final int MAX_NUMBER_OF_SHADOW_RAYS = 300;
+=======
+    private static final int MAX_NUMBER_OF_SHADOW_RAYS = 100;
+>>>>>>> 1ae6417ade380b2dec6b534b04b96722424ac518
 
     /**
      * Constructor
@@ -68,13 +72,13 @@ public class RayTracerBasic extends RayTracerBase {
         Color Ilights = Color.BLACK;
         Material material = geoPoint.geometry.getMaterial();
         Vector n = geoPoint.geometry.getNormal(geoPoint.point);
-        Vector v = ray.getDir();        
+        Vector v = ray.getDir();    
+        double vn = Util.alignZero(v.dotProduct(n));    
         for (LightSource light : scene.lights) {
             List<Vector> ls = light.getLs(geoPoint.point, MAX_NUMBER_OF_SHADOW_RAYS);
             Color Ils = Color.BLACK;
             for(Vector l : ls){
                 double nl = Util.alignZero(n.dotProduct(l));
-                double vn = Util.alignZero(v.dotProduct(n));
                 if (nl * vn > 0) {
                     Double3 ktr = transparency(geoPoint, l, n, light);
                     if (!(ktr.product(k).lowerThan(MIN_CALC_COLOR_K))) {

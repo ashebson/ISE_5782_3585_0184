@@ -198,4 +198,43 @@ public class LightsTests {
 				.renderImage() //
 				.writeToImage(); //
 	}
+
+	@Test
+    public void cylinderLightTest(){
+        // TC01: small cylinder (1 point)
+        Geometry cylinder = new Cylinder(
+                new Ray(new Point(0,0,2), new Vector(-0.5,0.7,1)), 
+                1,
+                3).setMaterial(
+					new Material()
+					.setKD(0.8)
+					.setKS(0.5)
+					.setNShininess(20)
+				).setEmission(
+					new Color(java.awt.Color.BLUE)
+				);
+
+		Geometry plane = new Plane(new Point(0,0,0), new Vector(0,0,1)).setMaterial(
+			new Material()
+			.setKD(0.8)
+			.setKS(0.5)
+			.setNShininess(20)
+		);
+		Scene scene = new Scene("lightCylinderTest")
+			.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.15)));
+		Camera camera = new Camera(new Point(100,0,100), new Vector(-1,0,0), new Vector(0,0,1))
+			.setWidthAndHeight(150, 150) //
+			.setDistance(1000)
+			.turnUp(-45)
+			.moveTo(40);
+		LightBulb lb = new LightBulb(new Color(100,100,100), new Point(0,10,10), 1);
+		scene.geometries.add(cylinder);
+		scene.geometries.add(plane);
+		scene.lights.add(lb);
+		ImageWriter imageWriter = new ImageWriter("lightCylinder", 2000, 2000);
+		camera.setImageWriter(imageWriter) //
+				.setRayTracer(new RayTracerBasic(scene)) //
+				.renderImage() //
+				.writeToImage(); //
+    }
 }

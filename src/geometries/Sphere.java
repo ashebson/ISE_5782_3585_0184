@@ -31,6 +31,7 @@ public class Sphere extends Geometry {
     public Sphere (Point center, double radius) {
         this.center = center;
         this.radius = radius;
+        generateBox();
     }
 
     // /**
@@ -124,5 +125,13 @@ public class Sphere extends Geometry {
      */
     public Boolean isIn(Point p){
         return center.DistanceSquared(p) <= radius*radius;
+    }
+
+    @Override
+    protected void generateBox() {
+        Vector r = new Vector(radius, radius, radius);
+        Point min = center.subtract(r);
+        Point max = center.add(r);
+        setBox(new Box(min, max));
     }
 }

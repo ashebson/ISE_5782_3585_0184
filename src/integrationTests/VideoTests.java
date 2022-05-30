@@ -86,28 +86,4 @@ public class VideoTests {
 					.writeToImage(); //
 		}
 	}
-
-    //@Test
-	// public void cylinderDirectional() {
-    //     Color colorDelta = new Color(BLACK);
-    //     Vector vectorDelta = new Vector(-(2.0/60), -(2.0/60), 0);
-    //     Intersectable[] geos = {cylinder};
-    //     for(int i = 0; i < 30; i++){
-    //         scene1 = new Scene("Test scene");
-    //         scene1.geometries.add(geos);
-    //         Vector propotionalVectorDelta = new Vector(1,1,1);
-    //         try{
-    //             propotionalVectorDelta = vectorDelta.scale(i);
-    //         }catch (IllegalArgumentException e){
-    //             propotionalVectorDelta = vectorDelta;
-    //         }
-    //         scene1.lights.add(new DirectionalLight(spCL.add(colorDelta), new Vector(1, 1, -0.5).add(propotionalVectorDelta)));
-            
-    //         ImageWriter imageWriter = new ImageWriter("videoFrameCylinderDirectional"+i, 500, 500);
-	// 	    camera1.setImageWriter(imageWriter) //
-	// 			.setRayTracer(new RayTracerBasic(scene1)) //
-	// 			.renderImage() //
-	// 			.writeToImage(); //
-    //     }
-	// }
 }

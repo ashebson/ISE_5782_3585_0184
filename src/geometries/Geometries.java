@@ -1,5 +1,6 @@
 package geometries;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class Geometries extends Intersectable {
      */
     public Geometries(){
         geometries = new LinkedList<Intersectable>();
+
     }
 
     /**
@@ -94,5 +96,35 @@ public class Geometries extends Intersectable {
         if(intersections.size() == 0)
             return null;
         return intersections;
+    }
+
+    @Override
+    protected void generateBox() {
+        List<Double> minXs = new ArrayList<Double>();
+        List<Double> minYs = new ArrayList<Double>();
+        List<Double> minZs = new ArrayList<Double>();
+        List<Double> maxXs = new ArrayList<Double>();
+        List<Double> maxYs = new ArrayList<Double>();
+        List<Double> maxZs = new ArrayList<Double>();
+        for (var geometry: geometries){
+            Box box = geometry.getBox();
+            Point min = box.getMin();
+            Point max = box.getMax();
+            minXs.add(min.getX());
+            minYs.add(min.getY());
+            minZs.add(min.getZ());
+            maxXs.add(max.getX());
+            maxYs.add(max.getY());
+            maxZs.add(max.getZ());
+        }
+        double maxX = Collections.max(maxXs);
+        double maxY = Collections.max(maxYs);
+        double maxZ = Collections.max(maxZs);
+        double minX = Collections.min(minXs);
+        double minY = Collections.min(minYs);
+        double minZ = Collections.min(minZs);
+        Point min = new Point(minX,minY,minZ);
+        Point max = new Point(maxX,maxY,maxZ);
+        setBox(new Box(min,max));
     }
 }

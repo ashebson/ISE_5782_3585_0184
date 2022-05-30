@@ -20,6 +20,7 @@ public class Cylinder extends Tube {
     public Cylinder(Ray axisRay, double radius, double height) {
         super(axisRay, radius);
         this.height = height;
+        generateBox();
     }
 
     /**
@@ -66,9 +67,45 @@ public class Cylinder extends Tube {
                 if (distance > 0 && distance <= height)
                     res.add(geoPoint);
             }
-
+        Vector v = axisRay.getDir();
+        Point basePoint1 = axisRay.getP0();
+        Plane basePlane1 = new Plane(basePoint1, v);
+        Point basePoint2 = basePoint1.add(v.scale(height));
+        Plane basePlane2 = new Plane(basePoint2, v);
+        lst = basePlane1.findGeoIntersections(ray,max);
+        if (lst != null)
+            for (GeoPoint geoPoint : lst) {
+                double distanceSquared = Util.alignZero(geoPoint.point.DistanceSquared(basePoint1));
+                if (Util.alignZero(distanceSquared - radius*radius) < 0)
+                    res.add(new GeoPoint(this, geoPoint.point));
+            }
+        lst = basePlane2.findGeoIntersections(ray,max);
+        if (lst != null)
+            for (GeoPoint geoPoint : lst) {
+                double distanceSquared = Util.alignZero(geoPoint.point.DistanceSquared(basePoint2));
+                if (Util.alignZero(distanceSquared - radius*radius) < 0)
+                    res.add(new GeoPoint(this, geoPoint.point));
+            }
         if (res.size() == 0)
             return null;
         return res;
+    }
+
+    @Override
+    public void generateBox(){
+        Point base1 = axisRay.getP0();
+        Point base2 = axisRay.getPoint(height);
+        double xMax = Math.max(base1.getX(), base2.getX());
+        double xMin = Math.min(base1.getX(), base2.getX());
+        double yMax = Math.max(base1.getY(), base2.getY());
+        double yMin = Math.min(base1.getY(), base2.getY());
+        double zMax = Math.max(base1.getZ(), base2.getZ());
+        double zMin = Math.min(base1.getZ(), base2.getZ());
+        Point min = new Point(xMin, yMin, zMin);
+        Point max = new Point(xMax, yMax, zMax);
+        Vector delta = new Vector(1,1,1).scale(radius);
+        min = min.subtract(delta);
+        max = max.add(delta);
+        setBox(new Box(min, max));
     }
 }

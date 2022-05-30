@@ -12,7 +12,7 @@ import static java.awt.Color.*;
 public class VaderTests {
     private Scene scene = new Scene("Test scene") //
             .setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.15)));
-    private Camera camera = new Camera(new Point(0, -600, 25), new Vector(0, 1, 0), new Vector(0, 0, 1)) //
+    private Camera camera = new Camera(new Point(0, -500, 25), new Vector(0, 1, 0), new Vector(0, 0, 1)) //
             .setWidthAndHeight(200, 200) //
             .setDistance(1000);
 
@@ -23,7 +23,7 @@ public class VaderTests {
             new Point(-75, 78, 100) }; // the left-top
     private Color trCL = new Color(256, 256, 256); // Triangles test Color of Light
     private Vector trDL = new Vector(1, 1, 1); // Triangles test Direction of Light
-    private Material material = new Material().setKD(0.8).setKS(0.8).setNShininess(300);
+    private Material material = new Material().setKD(0.3).setKS(0.8).setNShininess(30);
 
     private Geometry[] getTriangles0() {
         Geometry[] triangles = {
@@ -4910,40 +4910,123 @@ public class VaderTests {
     void vaderTest(){
         camera.moveUp(60);
         camera.turnUp(-8);
-        Intersectable[] triangles1 = getTriangles0();
-        Intersectable[] triangles2 = getTriangles1();
-        Intersectable[] triangles3 = getTriangles2();
-        Intersectable[] triangles4 = getTriangles3();
-        Geometry plane = new Plane(new Point(0,0,0), new Vector(0,0,1))
-                .setEmission(new Color(java.awt.Color.BLUE).reduce(4))
+        camera.moveRight(5);
+        camera.moveUp(5);
+        Geometries triangles1 = new Geometries(getTriangles0());
+        Geometries triangles2 = new Geometries(getTriangles1());
+        Geometries triangles3 = new Geometries(getTriangles2());
+        Geometries triangles4 = new Geometries(getTriangles3());
+        Geometry plane = new Plane(new Point(0,0,-5), new Vector(0,0,1))
+                .setEmission(new Color(3,3,10))
                 .setMaterial(
                         new Material()
-                        .setKD(0.5)
-                        .setKS(0.5)
-                        .setNShininess(60)
+                        .setKD(0.3)
+                        .setKS(0.9)
+                        .setNShininess(300)
                 );
-        scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.15));
+        scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.01));
         scene.geometries.add(triangles1);
         scene.geometries.add(triangles2);
         scene.geometries.add(triangles3);
         scene.geometries.add(triangles4);
         scene.geometries.add(plane);
-        scene.lights.add(new DirectionalLight(new Color(100,100,100), new Vector(0,1,0)));
-        Point lightPoint = new Point(40,-40,100);
-        Geometry sphere = new Sphere(lightPoint,10)
-                .setMaterial(
-                        new Material()
-                        .setKT(0.8)
-                        .setKD(0.2)
-                        .setKS(0.2)
-                        .setNShininess(30)
-                );
-        scene.lights.add(new LightBulb(trCL, lightPoint,10));
+        scene.lights.add(new DirectionalLight(new Color(50,50,50), new Vector(0,1,-0.7)));
+        //Point lightPoint = new Point(40,-40,100);
+        //scene.lights.add(new LightBulb(trCL, lightPoint,10));
+        //scene.lights.add(new PointLight(trCL, lightPoint));
+        Vector lightsaberVector = new Vector(1.5,-0.8,1).normalize();
+        Point lightsaberPointStart = new Point(-30,-30,0).add(lightsaberVector.scale(-4));
+        double lightsaberLength = 76;
+
+        Point lightsaberPoint = lightsaberPointStart.add(lightsaberVector.scale(30)); 
+
+        Geometry lightsaberFlame = new Cylinder(new Ray(lightsaberPoint, lightsaberVector), 2.5d, lightsaberLength)
+        .setEmission(new Color(java.awt.Color.RED).reduce(4))
+        .setMaterial(new Material()
+                .setKD(0.98)
+                .setKS(0.5)
+                .setNShininess(60)
+                .setKT(0.7)
+        );
+
+        int n = 30;
+        Color lightsaberIntensity = new Color(800,100,100);
+        for(int i = 0; i < n; i++){
+            scene.lights.add(new PointLight(
+                                lightsaberIntensity.reduce(n),
+                                lightsaberPoint.add(lightsaberVector.scale(i*(lightsaberLength/n)+lightsaberLength/n/2))
+                        ));                  
+        }
+
+        //
+        // ***********************Lightsaber Handel***********************
+        //
+        
+        Geometry lightsaberHandle1 = new Cylinder(new Ray(lightsaberPoint, lightsaberVector.scale(-1)), 2.8d, 3d)
+        .setEmission(Color.BLACK)
+        .setMaterial(new Material()
+                .setKD(0.32)
+                .setKS(0.82)
+                .setNShininess(60)
+        );
+        Geometry lightsaberHandle2 = new Cylinder(new Ray(lightsaberPoint.add(lightsaberVector.scale(-3)), lightsaberVector.scale(-1)), 3d, 1.5d)
+        .setEmission(Color.BLACK)
+        .setMaterial(new Material()
+                .setKD(0.29)
+                .setKS(0.79)
+                .setNShininess(60)
+        );
+        Geometry lightsaberHandle3 = new Cylinder(new Ray(lightsaberPoint.add(lightsaberVector.scale(-4.5)), lightsaberVector.scale(-1)), 2.6d, 5.5d)
+        .setEmission(new Color(40,40,40))
+        .setMaterial(new Material()
+                .setKD(0.91)
+                .setKS(0.43)
+                .setNShininess(20)
+        );
+        Geometry lightsaberHandle4 = new Cylinder(new Ray(lightsaberPoint.add(lightsaberVector.scale(-6.5)), lightsaberVector.scale(-1)), 2.7d, 1d)
+        .setEmission(new Color(40,40,40))
+        .setMaterial(new Material()
+                .setKD(0.89)
+                .setKS(0.40)
+                .setNShininess(20)
+        );
+        Geometry lightsaberHandle5 = new Cylinder(new Ray(lightsaberPoint.add(lightsaberVector.scale(-10)), lightsaberVector.scale(-1)), 2.8d, 4d)
+        .setEmission(Color.BLACK)
+        .setMaterial(new Material()
+                .setKD(0.4)
+                .setKS(0.76)
+                .setNShininess(20)
+        );
+        Geometry lightsaberHandle6 = new Cylinder(new Ray(lightsaberPoint.add(lightsaberVector.scale(-14)), lightsaberVector.scale(-1)), 2.9d, 7d)
+        .setEmission(Color.BLACK)
+        .setMaterial(new Material()
+                .setKD(0.37)
+                .setKS(0.69)
+                .setNShininess(20)                
+        );
+        Geometry lightsaberHandle7 = new Cylinder(new Ray(lightsaberPoint.add(lightsaberVector.scale(-21)), lightsaberVector.scale(-1)), 2.6d, 1d)
+        .setEmission(new Color(30,30,30))
+        .setMaterial(new Material()
+                .setKD(0.85)
+                .setKS(0.34)
+                .setNShininess(20)                
+        );
+        Intersectable Lightsaber = new Geometries(
+                lightsaberFlame, 
+                lightsaberHandle1, 
+                lightsaberHandle2, 
+                lightsaberHandle3, 
+                lightsaberHandle4, 
+                lightsaberHandle5, 
+                lightsaberHandle6, 
+                lightsaberHandle7);
+        scene.geometries.add(Lightsaber);
         // Geometry helpSphere = new Sphere(new Point(0,0,0),30)
         //        .setEmission(new Color(java.awt.Color.RED));
         // scene.geometries.add(helpSphere);
         
-        int QUALITY = 1000;
+        
+        int QUALITY = 100;
         ImageWriter imageWriter = new ImageWriter("vaderTest", QUALITY, QUALITY);
             camera.setImageWriter(imageWriter) //
                     .setRayTracer(new RayTracerBasic(scene)) //
