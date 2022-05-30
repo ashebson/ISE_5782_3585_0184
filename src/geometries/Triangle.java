@@ -6,6 +6,7 @@ import java.util.List;
 import org.w3c.dom.Element;
 
 import primitives.*;
+import parser.*;
 
 /**
  * Triangle class
@@ -20,13 +21,13 @@ public class Triangle extends Polygon {
         super(p1, p2, p3);
     }
 
-    // public Triangle(Element element){
-    //     super(
-    //         new Point(element.getAttribute("p0")),
-    //         new Point(element.getAttribute("p1")),
-    //         new Point(element.getAttribute("p2"))
-    //     );
-    // }
+    public Triangle(Element element){
+        this(
+            new Point(Parser.parseDouble3(element.getAttribute("p0"))),
+            new Point(Parser.parseDouble3(element.getAttribute("p1"))),
+            new Point(Parser.parseDouble3(element.getAttribute("p2")))
+        );
+    }
 
 
     @Override

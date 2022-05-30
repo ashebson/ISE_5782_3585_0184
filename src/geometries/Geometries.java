@@ -1,4 +1,5 @@
 package geometries;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -8,6 +9,7 @@ import org.hamcrest.core.IsInstanceOf;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import parser.Parser;
 import primitives.*;
 
 /**
@@ -21,7 +23,6 @@ public class Geometries extends Intersectable {
      */
     public Geometries(){
         geometries = new LinkedList<Intersectable>();
-
     }
 
     /**
@@ -32,32 +33,31 @@ public class Geometries extends Intersectable {
         this.geometries = new LinkedList<Intersectable>();
         for (Intersectable g : geometries)
             this.geometries.add(g);
+        generateBox();
     }
 
     /**
      * constructor with a element
      * @param element
+     * @throws InvocationTargetException
+     * @throws IllegalArgumentException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     * @throws SecurityException
+     * @throws NoSuchMethodException
+     * @throws ClassNotFoundException
      */
-    // public Geometries(Element geometriesElement){
-    //     geometries = new ArrayList<Intersectable>();
-    //     NodeList elements = geometriesElement.getChildNodes();
-    //     for (int i = 0; i < elements.getLength(); i++){
-    //         if (elements.item(i) instanceof Element){
-    //             Element element = (Element) elements.item(i);
-    //             switch(element.getNodeName()){
-    //                 case "sphere":
-    //                     geometries.add(new Sphere(element));
-    //                     break;
-    //                 case "triangle":
-    //                     geometries.add(new Triangle(element));
-    //                     break;
-    //                 default:
-    //                     break;
-    //             }
-    //         }
-            
-    //     }
-    // }
+    public Geometries(Element geometriesElement) throws ClassNotFoundException, NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException{
+        geometries = new ArrayList<Intersectable>();
+        NodeList elements = geometriesElement.getChildNodes();
+        for (int i = 0; i < elements.getLength(); i++){
+            if (elements.item(i) instanceof Element){
+                Element element = (Element) elements.item(i);
+                geometries.add((Intersectable)Parser.parseObject(element));
+            }
+        }
+        generateBox();
+    }
 
     /**
      * add a geometry to the list
@@ -66,6 +66,7 @@ public class Geometries extends Intersectable {
     public void add(Intersectable... g){
         for (Intersectable geometry : g)
             this.geometries.add(geometry);
+        generateBox();
     }
     
     @Override
@@ -108,6 +109,10 @@ public class Geometries extends Intersectable {
         List<Double> maxZs = new ArrayList<Double>();
         for (var geometry: geometries){
             Box box = geometry.getBox();
+            if (box == null){
+                setBox(null);
+                return;
+            }
             Point min = box.getMin();
             Point max = box.getMax();
             minXs.add(min.getX());
