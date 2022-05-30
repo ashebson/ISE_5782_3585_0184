@@ -23,6 +23,7 @@ public class Plane extends Geometry {
     public Plane(Point q0, Vector normal) {
         this.q0 = q0;
         this.normal = normal.normalize();
+        generateBox();
     }
 
     /**
@@ -89,5 +90,10 @@ public class Plane extends Geometry {
         }
         Vector v2 = normal.crossProduct(v1);
         return List.of(v1.normalize(), v2.normalize());
+    }
+
+    @Override
+    protected void generateBox() {
+        setBox(null);
     }
 }

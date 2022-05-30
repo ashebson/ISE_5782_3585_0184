@@ -4910,10 +4910,10 @@ public class VaderTests {
     void vaderTest(){
         camera.moveUp(60);
         camera.turnUp(-8);
-        Intersectable[] triangles1 = getTriangles0();
-        Intersectable[] triangles2 = getTriangles1();
-        Intersectable[] triangles3 = getTriangles2();
-        Intersectable[] triangles4 = getTriangles3();
+        Geometries triangles1 = new Geometries(getTriangles0());
+        Geometries triangles2 = new Geometries(getTriangles1());
+        Geometries triangles3 = new Geometries(getTriangles2());
+        Geometries triangles4 = new Geometries(getTriangles3());
         Geometry plane = new Plane(new Point(0,0,0), new Vector(0,0,1))
                 .setEmission(new Color(java.awt.Color.BLUE).reduce(4))
                 .setMaterial(
@@ -4930,15 +4930,17 @@ public class VaderTests {
         scene.geometries.add(plane);
         scene.lights.add(new DirectionalLight(new Color(100,100,100), new Vector(0,1,0)));
         Point lightPoint = new Point(40,-40,100);
-        Geometry sphere = new Sphere(lightPoint,10)
-                .setMaterial(
-                        new Material()
-                        .setKT(0.8)
-                        .setKD(0.2)
-                        .setKS(0.2)
-                        .setNShininess(30)
-                );
         scene.lights.add(new LightBulb(trCL, lightPoint,10));
+        //scene.lights.add(new PointLight(trCL, lightPoint));
+        Geometry lightsaber = new Cylinder(new Ray(new Point(-15,-50,5), new Vector(1.5,0.5,0.8)), 3d, 80d)
+        .setEmission(new Color(java.awt.Color.RED).reduce(4))
+        .setMaterial(new Material()
+                .setKD(0.5)
+                .setKS(0.5)
+                .setNShininess(60)
+                .setKT(0.5)
+        );
+        scene.geometries.add(lightsaber);
         // Geometry helpSphere = new Sphere(new Point(0,0,0),30)
         //        .setEmission(new Color(java.awt.Color.RED));
         // scene.geometries.add(helpSphere);

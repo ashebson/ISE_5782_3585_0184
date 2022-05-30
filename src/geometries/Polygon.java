@@ -1,6 +1,7 @@
 package geometries;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -84,6 +85,7 @@ public class Polygon extends Geometry {
 				throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
 		}
 		size = vertices.length;
+		generateBox();
 	}
 
 	@Override
@@ -134,4 +136,25 @@ public class Polygon extends Geometry {
 		}
         return List.of(intersection);
     }
+
+	@Override
+	protected void generateBox() {
+		List<Double> Xs = new ArrayList<>();
+		List<Double> Ys = new ArrayList<>();
+		List<Double> Zs = new ArrayList<>();
+		for (var point : vertices) {
+			Xs.add(point.getX());
+			Ys.add(point.getY());
+			Zs.add(point.getZ());
+		}
+		double xMin = Collections.min(Xs);
+		double xMax = Collections.max(Xs);
+		double yMin = Collections.min(Ys);
+		double yMax = Collections.max(Ys);
+		double zMin = Collections.min(Zs);
+		double zMax = Collections.max(Zs);
+		Point min = new Point(xMin, yMin, zMin);
+		Point max = new Point(xMax, yMax, zMax);
+		setBox(new Box(min, max));
+	}
 }

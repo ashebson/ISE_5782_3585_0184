@@ -21,6 +21,7 @@ public class Tube extends Geometry {
     public Tube(Ray axisRay, double radius) {
         this.axisRay = axisRay;
         this.radius = radius;
+        generateBox();
     }
 
     @Override
@@ -113,5 +114,10 @@ public class Tube extends Geometry {
             return _points;
         }
         return null;
+    }
+
+    @Override
+    protected void generateBox() {
+        setBox(null);
     }
 }

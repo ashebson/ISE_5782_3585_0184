@@ -115,6 +115,14 @@ public class Double3 {
 	}
 
 	/**
+	 * devides double3s
+	 * @param rhs
+	 * @return
+	 */
+	public Double3 reduce(Double3 rhs){
+		return new Double3(d1/rhs.d1, d2/rhs.d2, d3/rhs.d3);
+	}
+	/**
 	 * Product two floating point triads into a new triad where each couple of
 	 * numbers is multiplied
 	 * 
@@ -124,7 +132,8 @@ public class Double3 {
 	public Double3 product(Double3 rhs) {
 		return new Double3(d1 * rhs.d1, d2 * rhs.d2, d3 * rhs.d3);
 	}
-	
+
+
 	/**
 	 * Checks whether all the numbers are lower than a test number
 	 * @param k the test number
