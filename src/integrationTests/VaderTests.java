@@ -4934,11 +4934,12 @@ public class VaderTests {
         //Point lightPoint = new Point(40,-40,100);
         //scene.lights.add(new LightBulb(trCL, lightPoint,10));
         //scene.lights.add(new PointLight(trCL, lightPoint));
-        Vector lightsaberVector = new Vector(1.5,-0.8,1).normalize();
-        Point lightsaberPointStart = new Point(-30,-30,0).add(lightsaberVector.scale(-4));
+        Vector lightsaberVector = new Vector(1.5,-0.8,1).normalize();        
         double lightsaberLength = 76;
 
-        Point lightsaberPoint = lightsaberPointStart.add(lightsaberVector.scale(30)); 
+        Vector lightsaberPointAline = new Vector(1.5,-0.8,1).normalize();
+        Point lightsaberPointStart = new Point(-30,-30,0).add(lightsaberPointAline.scale(-5));
+        Point lightsaberPoint = lightsaberPointStart.add(lightsaberVector.scale(22)); 
 
         Geometry lightsaberFlame = new Cylinder(new Ray(lightsaberPoint, lightsaberVector), 2.5d, lightsaberLength)
         .setEmission(new Color(java.awt.Color.RED).reduce(4))
