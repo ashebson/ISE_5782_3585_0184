@@ -185,10 +185,10 @@ public class VaderTests {
                 addLightsaber(
                         scene,
                         new Point(-30, -30, 0).add(lightsaberVector.scale(-4)).add(new Vector(0,-20,0)),
-                        lightsaberVector,
+                        new Vector(1.5, -0.2,1).normalize(),
                         66,
                         new Color(java.awt.Color.RED).reduce(4),
-                        new Color(500, 100, 100),
+                        new Color(1000, 0, 0),
                         30);
                 
                 
@@ -198,9 +198,9 @@ public class VaderTests {
                         new Vector(-1.5, 0.2, 1).normalize(),
                         66,
                         new Color(java.awt.Color.GREEN).reduce(4),
-                        new Color(500, 100, 800),
+                        new Color(0, 500, 0),
                         30);              
-                int QUALITY = 500;
+                int QUALITY = 1000;
                 ImageWriter imageWriter = new ImageWriter("vaderPicture" , QUALITY,
                                 QUALITY);
                 camera.setImageWriter(imageWriter) //
@@ -238,7 +238,7 @@ public class VaderTests {
                                 scene.lights.add(new PointLight(
                                                 lightIntesity.reduce(n),
                                                 i == 0 ? lightsaberPoint : lightsaberPoint.add(lightsaberVector
-                                                                .scale(i * lightsaberLength / n-1))));
+                                                                .scale(i * lightsaberLength / n-1))).setKL(0.01).setKQ(0.00001));
                         }
                 }
 
