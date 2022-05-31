@@ -66,6 +66,7 @@ public class VaderTests {
                         .setKS(0.9)
                         .setNShininess(300)
                 );
+<<<<<<< HEAD
         for (int frame = 0; frame < 12; frame++){
                 scene = new Scene("Test scene");
                 scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.01));
@@ -88,6 +89,24 @@ public class VaderTests {
                         .setNShininess(60)
                         .setKT(0.7)
                 );
+=======
+        scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.01));
+        scene.geometries.add(triangles1);
+        scene.geometries.add(triangles2);
+        scene.geometries.add(triangles3);
+        scene.geometries.add(triangles4);
+        scene.geometries.add(plane);
+        scene.lights.add(new DirectionalLight(new Color(50,50,50), new Vector(0,1,-0.7)));
+        //Point lightPoint = new Point(40,-40,100);
+        //scene.lights.add(new LightBulb(trCL, lightPoint,10));
+        //scene.lights.add(new PointLight(trCL, lightPoint));
+        Vector lightsaberVector = new Vector(1.5,-0.8,1).normalize();        
+        double lightsaberLength = 76;
+
+        Vector lightsaberPointAline = new Vector(1.5,-0.8,1).normalize();
+        Point lightsaberPointStart = new Point(-30,-30,0).add(lightsaberPointAline.scale(-5));
+        Point lightsaberPoint = lightsaberPointStart.add(lightsaberVector.scale(22)); 
+>>>>>>> 3c1b23d6066e1ec3912e46a8a1a69f52409fb9d3
 
                 int n = 30;
                 Color lightsaberIntensity = new Color(800,100,100);
