@@ -27,6 +27,8 @@ public class Triangle extends Polygon {
             new Point(Parser.parseDouble3(element.getAttribute("p1"))),
             new Point(Parser.parseDouble3(element.getAttribute("p2")))
         );
+        Material material = new Material((Element)element.getElementsByTagName("primitives.Material").item(0));
+        this.setMaterial(material);
     }
 
 

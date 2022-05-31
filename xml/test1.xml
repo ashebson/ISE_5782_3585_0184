@@ -4,7 +4,9 @@
 	<geometries>
 		<geometries.Sphere center="0 0 -100" radius="50" />
 		<geometries.Geometries>
-			<geometries.Triangle p0="-100 0 -100" p1="0 100 -100" p2="-100 100 -100" />
+			<geometries.Triangle p0="-100 0 -100" p1="0 100 -100" p2="-100 100 -100">
+				<primitives.Material kD = "0.1 0.1 0.1"/>
+			</geometries.Triangle>
 			<geometries.Triangle p0="-100 0 -100" p1="0 -100 -100" p2="-100 -100 -100" />
 			<geometries.Triangle p0="100 0 -100" p1="0 -100 -100" p2="100 -100 -100" />
 		</geometries.Geometries>

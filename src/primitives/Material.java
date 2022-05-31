@@ -1,11 +1,40 @@
 package primitives;
 
+import org.w3c.dom.Element;
+
+import parser.Parser;
+
 public class Material {
     public Double3 kD = Double3.ZERO, kS = Double3.ZERO, kT = Double3.ZERO, kR = Double3.ZERO;
     public int nShininess;
+    public Material(){}
+    public Material(Element element) {
+        try {
+            kD = Parser.parseDouble3(element.getAttribute("kD"));
+        } catch (Exception e) {
+            
+        }
+        try {
+            kS = Parser.parseDouble3(element.getAttribute("kS"));
+        } catch (Exception e) {
+        }
+        try {
+            kT = Parser.parseDouble3(element.getAttribute("kT"));
+        } catch (Exception e) {
+        }
+        try {
+            kR = Parser.parseDouble3(element.getAttribute("kR"));
+        } catch (Exception e) {
+        }
+        try {
+            nShininess = Integer.parseInt(element.getAttribute("nShininess"));
+        } catch (Exception e) {
+        }
+    }
 
     /**
      * setter for kD
+     * 
      * @param kD
      * @return this
      */
@@ -16,6 +45,7 @@ public class Material {
 
     /**
      * setter for kD
+     * 
      * @param kD
      * @return this
      */
@@ -26,6 +56,7 @@ public class Material {
 
     /**
      * setter for kS
+     * 
      * @param kS
      * @return this
      */
@@ -36,6 +67,7 @@ public class Material {
 
     /**
      * setter for kS
+     * 
      * @param kS
      * @return this
      */
@@ -46,6 +78,7 @@ public class Material {
 
     /**
      * setter for nShininess
+     * 
      * @param nShininess
      * @return this
      */
@@ -56,6 +89,7 @@ public class Material {
 
     /**
      * setter for kT
+     * 
      * @param kT
      * @return this
      */
@@ -66,6 +100,7 @@ public class Material {
 
     /**
      * setter for kT
+     * 
      * @param kT
      * @return this
      */
@@ -76,6 +111,7 @@ public class Material {
 
     /**
      * setter for kR
+     * 
      * @param kR
      * @return this
      */
@@ -86,6 +122,7 @@ public class Material {
 
     /**
      * setter for kR
+     * 
      * @param kR
      * @return this
      */

@@ -70,7 +70,12 @@ public class Cylinder extends Tube {
         Vector v = axisRay.getDir();
         Point basePoint1 = axisRay.getP0();
         Plane basePlane1 = new Plane(basePoint1, v);
-        Point basePoint2 = basePoint1.add(v.scale(height));
+        Point basePoint2;
+        if (height != 0){
+            basePoint2 = basePoint1.add(v.scale(height));
+        }else{
+            basePoint2 = basePoint1;
+        }
         Plane basePlane2 = new Plane(basePoint2, v);
         lst = basePlane1.findGeoIntersections(ray,max);
         if (lst != null)
