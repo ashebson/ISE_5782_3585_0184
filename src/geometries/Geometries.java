@@ -1,6 +1,7 @@
 package geometries;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -131,5 +132,18 @@ public class Geometries extends Intersectable {
         Point min = new Point(minX,minY,minZ);
         Point max = new Point(maxX,maxY,maxZ);
         setBox(new Box(min,max));
+    }
+
+    public Geometries[] split(int count){
+        Geometries[] ret = new Geometries[count+1];
+        List<Intersectable> sub = new ArrayList<>();
+        int chunk = geometries.size()/count;
+        for (int i = 0; i < count; i++){
+            sub = geometries.subList(i*chunk, (i+1)*chunk);
+            ret[i] = new Geometries(sub.toArray(new Intersectable[0]));
+        }
+        sub = geometries.subList(chunk*count,geometries.size());
+        ret[count] = new Geometries(sub.toArray(new Intersectable[0]));
+        return ret;
     }
 }

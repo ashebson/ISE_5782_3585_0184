@@ -53,7 +53,9 @@ public class Scene {
         Element ambientLightElement = (Element) element.getElementsByTagName("ambient-light").item(0);
         Element geometriesElement = (Element) element.getElementsByTagName("geometries").item(0);
         name = element.getAttribute("name");
-        background = new Color(Parser.parseDouble3(element.getAttribute("background-color")));
+        try{
+            background = new Color(Parser.parseDouble3(element.getAttribute("background-color")));
+        }catch (Exception e){}
         ambientLight = new AmbientLight(ambientLightElement);
         geometries = new Geometries(geometriesElement);
     }
