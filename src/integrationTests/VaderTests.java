@@ -69,7 +69,7 @@ public class VaderTests {
                                                                 .setKD(0.3)
                                                                 .setKS(0.9)
                                                                 .setNShininess(300));
-                for (int frame = 0; frame < 12; frame++) {
+                for (int frame = 0; frame < 24; frame++) {
                         scene = new Scene("Test scene");
                         scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.01));
                         scene.geometries.add(split_triangles);
@@ -85,12 +85,12 @@ public class VaderTests {
                                         scene,
                                         new Point(-30, -30, 0).add(lightsaberVector.scale(-4)),
                                         lightsaberVector,
-                                        frame * 6,
-                                        new Color(java.awt.Color.RED).reduce(4),
-                                        new Color(800, 100, 100),
-                                        30);
+                                        66d / 24 * frame,
+                                        new Color(java.awt.Color.RED).reduce(2.5),
+                                        new Color(1100, 0, 0),
+                                        100);
 
-                        int QUALITY = 100;
+                        int QUALITY = 500;
                         ImageWriter imageWriter = new ImageWriter("vaderVideo2/vaderVideoFrame" + frame, QUALITY,
                                         QUALITY);
                         camera.setImageWriter(imageWriter) //
@@ -120,7 +120,11 @@ public class VaderTests {
                                                                 .setKD(0.3)
                                                                 .setKS(0.9)
                                                                 .setNShininess(300));
-                for (int frame = 30; frame < 72; frame++) {
+                int n = 30;
+                int s = 24;
+                int i;
+                for (int frame = s; frame < s + n; frame++) {
+                        i = frame - s;
                         scene = new Scene("Test scene");
                         scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.01));
                         scene.geometries.add(split_triangles);
@@ -130,17 +134,19 @@ public class VaderTests {
                         // scene.lights.add(new LightBulb(trCL, lightPoint,10));
                         // scene.lights.add(new PointLight(trCL, lightPoint));
 
-                        Vector lightsaberVector = new Vector(1.5, -0.8, 1 + ((double) frame - 12) / 60).normalize();
+                        Vector lightsaberVector = new Vector(1.5 + (-3.0 / n * (i)), -0.8, 1).normalize();
                         addLightsaber(
                                         scene,
-                                        new Point(-30, -30, 0).add(lightsaberVector.scale(-4)),
+                                        new Point(-30 + (75.0 / n * (i)),
+                                                        -30 + (-40.0 * 2 / n * ((i) < n / 2 ? i : n - (i))), 0)
+                                                        .add(lightsaberVector.scale(-4)),
                                         lightsaberVector,
                                         66.0,
-                                        new Color(java.awt.Color.RED).reduce(4),
-                                        new Color(800, 100, 100),
-                                        30);
+                                        new Color(java.awt.Color.RED).reduce(2.5),
+                                        new Color(1100, 0, 0),
+                                        100);
 
-                        int QUALITY = 100;
+                        int QUALITY = 500;
                         ImageWriter imageWriter = new ImageWriter("vaderVideo2/vaderVideoFrame" + frame, QUALITY,
                                         QUALITY);
                         camera.setImageWriter(imageWriter) //
@@ -170,46 +176,46 @@ public class VaderTests {
                                                                 .setKD(0.3)
                                                                 .setKS(0.9)
                                                                 .setNShininess(300));
-                
+
                 scene = new Scene("Test scene");
                 scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.01));
                 scene.geometries.add(split_triangles);
                 scene.geometries.add(plane);
-                scene.lights.add(new DirectionalLight(new Color(50,50, 50), new Vector(0, 1, -0.7)));
+                scene.lights.add(new DirectionalLight(new Color(50, 50, 50), new Vector(0, 1, -0.7)));
                 // Point lightPoint = new Point(40,-40,100);
                 // scene.lights.add(new LightBulb(trCL, lightPoint,10));
                 // scene.lights.add(new PointLight(trCL, lightPoint));
 
                 Vector lightsaberVector = new Vector(1.5, -0.8, 1).normalize();
-                
+
                 addLightsaber(
-                        scene,
-                        new Point(-30, -30, 0).add(lightsaberVector.scale(-4)).add(new Vector(0,-20,0)),
-                        new Vector(1.5, -0.2,1).normalize(),
-                        66,
-                        new Color(java.awt.Color.RED).reduce(4),
-                        new Color(1000, 0, 0),
-                        30);
-                
-                
+                                scene,
+                                new Point(-30, -30, 0).add(lightsaberVector.scale(-4)).add(new Vector(0, -20, 0)),
+                                new Vector(1.5, -0.2, 1).normalize(),
+                                66,
+                                new Color(java.awt.Color.RED).reduce(2),
+                                new Color(1100, 0, 0),
+                                30);
+
                 addLightsaber(
-                        scene,
-                        new Point(-30, -30, 0).add(lightsaberVector.scale(-4).add(new Vector(75,-50,0))),
-                        new Vector(-1.5, 0.2, 1).normalize(),
-                        66,
-                        new Color(java.awt.Color.GREEN).reduce(4),
-                        new Color(0, 500, 0),
-                        30);              
-                int QUALITY = 1000;
-                ImageWriter imageWriter = new ImageWriter("vaderPicture" , QUALITY,
+                                scene,
+                                new Point(-30, -30, 0).add(lightsaberVector.scale(-4).add(new Vector(75, -50, 0))),
+                                new Vector(-1.5, 0.2, 1).normalize(),
+                                66,
+                                // new Color(java.awt.Color.GREEN).reduce(2),
+                                // new Color(0, 1100, 0),
+                                new Color(0, 204, 255).reduce(2),
+                                new Color(0, 300, 800),
+                                30);
+                int QUALITY = 2000;
+                ImageWriter imageWriter = new ImageWriter("vaderPictureB", QUALITY,
                                 QUALITY);
                 camera.setImageWriter(imageWriter) //
                                 .setRayTracer(new RayTracerBasic(scene)) //
                                 .renderImage() //
                                 .writeToImage(); //
-                
-        }
 
+        }
 
         private Geometries[] loadVader() throws ClassNotFoundException, NoSuchMethodException, SecurityException,
                         InstantiationException, IllegalAccessException, IllegalArgumentException,
@@ -223,22 +229,23 @@ public class VaderTests {
         private void addLightsaber(Scene scene, Point lightsaberPointStart, Vector lightsaberVector,
                         double lightsaberLength, Color glassColor, Color lightIntesity, int n) {
                 Point lightsaberPoint = lightsaberPointStart.add(lightsaberVector.scale(22));
-                if (lightsaberLength != 0)
-                {
+                if (lightsaberLength != 0) {
                         Geometry lightsaberFlame = new Cylinder(new Ray(lightsaberPoint, lightsaberVector), 2.5d,
-                                lightsaberLength)
-                                .setEmission(glassColor)
-                                .setMaterial(new Material()
-                                                .setKD(0.99)
-                                                .setKS(0.8)
-                                                .setNShininess(60)
-                                                .setKT(0.7));
+                                        lightsaberLength)
+                                        .setEmission(glassColor)
+                                        .setMaterial(new Material()
+                                                        .setKD(0.2)
+                                                        .setKS(0.8)
+                                                        .setNShininess(60)
+                                                        .setKT(0.7));
                         scene.geometries.add(lightsaberFlame);
                         for (int i = 0; i < n; i++) {
                                 scene.lights.add(new PointLight(
                                                 lightIntesity.reduce(n),
-                                                i == 0 ? lightsaberPoint : lightsaberPoint.add(lightsaberVector
-                                                                .scale(i * lightsaberLength / n-1))).setKL(0.01).setKQ(0.00001));
+                                                i == 0 ? lightsaberPoint
+                                                                : lightsaberPoint.add(lightsaberVector
+                                                                                .scale(i * lightsaberLength / n - 1)))
+                                                .setKL(0.02).setKQ(0.00001));
                         }
                 }
 
@@ -252,7 +259,8 @@ public class VaderTests {
                                 .setMaterial(new Material()
                                                 .setKD(0.32)
                                                 .setKS(0.82)
-                                                .setNShininess(60));
+                                                .setNShininess(60)
+                                                .setKR(0.4));
                 Geometry lightsaberHandle2 = new Cylinder(
                                 new Ray(lightsaberPoint.add(lightsaberVector.scale(-3)), lightsaberVector.scale(-1)),
                                 3d, 1.5d)
@@ -260,39 +268,44 @@ public class VaderTests {
                                 .setMaterial(new Material()
                                                 .setKD(0.29)
                                                 .setKS(0.79)
-                                                .setNShininess(60));
+                                                .setNShininess(60)
+                                                .setKR(0.35));
                 Geometry lightsaberHandle3 = new Cylinder(
                                 new Ray(lightsaberPoint.add(lightsaberVector.scale(-4.5)), lightsaberVector.scale(-1)),
-                                2.6d, 5.5d)
+                                2.4d, 5.5d)
                                 .setEmission(new Color(40, 40, 40))
                                 .setMaterial(new Material()
                                                 .setKD(0.91)
                                                 .setKS(0.43)
-                                                .setNShininess(20));
+                                                .setNShininess(20)
+                                                .setKR(0.84));
                 Geometry lightsaberHandle4 = new Cylinder(
-                                new Ray(lightsaberPoint.add(lightsaberVector.scale(-6.5)), lightsaberVector.scale(-1)),
-                                2.7d, 1d)
+                                new Ray(lightsaberPoint.add(lightsaberVector.scale(-7)), lightsaberVector.scale(-1)),
+                                2.6d, 1d)
                                 .setEmission(new Color(40, 40, 40))
                                 .setMaterial(new Material()
-                                                .setKD(0.89)
-                                                .setKS(0.40)
-                                                .setNShininess(20));
+                                                .setKD(0.8)
+                                                .setKS(0.5)
+                                                .setNShininess(20)
+                                                .setKR(0.88));
                 Geometry lightsaberHandle5 = new Cylinder(
                                 new Ray(lightsaberPoint.add(lightsaberVector.scale(-10)), lightsaberVector.scale(-1)),
-                                2.8d, 4d)
+                                2.75d, 4d)
                                 .setEmission(Color.BLACK)
                                 .setMaterial(new Material()
                                                 .setKD(0.4)
                                                 .setKS(0.76)
-                                                .setNShininess(20));
+                                                .setNShininess(20)
+                                                .setKR(0.42));
                 Geometry lightsaberHandle6 = new Cylinder(
                                 new Ray(lightsaberPoint.add(lightsaberVector.scale(-14)), lightsaberVector.scale(-1)),
-                                2.9d, 7d)
+                                3d, 7d)
                                 .setEmission(Color.BLACK)
                                 .setMaterial(new Material()
-                                                .setKD(0.37)
-                                                .setKS(0.69)
-                                                .setNShininess(20));
+                                                .setKD(0.5)
+                                                .setKS(0.9)
+                                                .setNShininess(20)
+                                                .setKR(0.87));
                 Geometry lightsaberHandle7 = new Cylinder(
                                 new Ray(lightsaberPoint.add(lightsaberVector.scale(-21)), lightsaberVector.scale(-1)),
                                 2.6d, 1d)
@@ -300,7 +313,8 @@ public class VaderTests {
                                 .setMaterial(new Material()
                                                 .setKD(0.85)
                                                 .setKS(0.34)
-                                                .setNShininess(20));
+                                                .setNShininess(20)
+                                                .setKR(0.9));
                 Intersectable Lightsaber = new Geometries(
                                 lightsaberHandle1,
                                 lightsaberHandle2,
